@@ -1,21 +1,23 @@
 <?php
 
-namespace App\GraphQL\Queries;
+declare (strict_types = 1);
 
-use App\Models\Wine;
-use GraphQL;
+namespace App\GraphQL\Mutations\User;
+
+use App\Models\User;
 use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Query;
+use Rebing\GraphQL\Support\Mutation;
 
-class WineQuery extends Query
+class DeleteUserMutation extends Mutation
 {
     protected $attributes = [
-        'name' => 'wine',
+        'name' => 'user/DeleteUser',
+        'description' => 'A mutation',
     ];
 
     public function type(): Type
     {
-        return GraphQL::type('Wine');
+        return Type::boolean();
     }
 
     public function args(): array
@@ -31,6 +33,8 @@ class WineQuery extends Query
 
     public function resolve($root, $args)
     {
-        return Wine::findOrFail($args['id']);
+        $category = User::findOrFail($args['id']);
+
+        return $category->delete();
     }
 }

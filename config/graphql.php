@@ -10,22 +10,23 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                App\GraphQL\Queries\WineQuery::class,
-                App\GraphQL\Queries\WinesQuery::class,
                 App\GraphQL\Queries\ProfileQuery::class,
-            ],
-            'mutation' => [
             ],
         ],
         'secret' => [
             'query' => [
-                App\GraphQL\Queries\UsersQuery::class,
+                'user' => App\GraphQL\Queries\UserQuery::class,
+                'users' => App\GraphQL\Queries\UsersQuery::class,
+            ],
+            'mutation' => [
+                'createUser' => App\GraphQL\Mutations\User\CreateUserMutation::class,
+                'deleteUser' => App\GraphQL\Mutations\User\DeleteUserMutation::class,
+                'updateUser' => App\GraphQL\Mutations\User\UpdateUserMutation::class,
             ],
             'middleware' => ['auth:api'],
         ],
     ],
     'types' => [
-        'Wine' => App\GraphQL\Types\WineType::class,
         'User' => App\GraphQL\Types\UserType::class,
     ],
     'lazyload_types' => true,

@@ -10,24 +10,27 @@ class UserType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'User',
-        'description' => 'A type',
-        'model' => User::class,
+        'description' => 'A type'
     ];
 
     public function fields(): array
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::int())
             ],
-
             'name' => [
-                'type' => Type::string(),
+                'type' => Type::nonNull(Type::string())
             ],
-
             'email' => [
-                'type' => Type::string(),
+                'type' => Type::nonNull(Type::string())
             ],
+            'created_at' => [
+                'type' => Type::nonNull(Type::string())
+            ],
+            'updated_at' => [
+                'type' => Type::nonNull(Type::string())
+            ]
         ];
     }
 }
