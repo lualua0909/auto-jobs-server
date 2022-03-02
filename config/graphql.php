@@ -6,16 +6,15 @@ return [
     'controllers' => \Rebing\GraphQL\GraphQLController::class . '@query',
     'middleware' => [],
     'route_group_attributes' => [],
-    // 'default_schema' => 'default',
+    'default_schema' => 'default',
     'schemas' => [
         'default' => [
             'query' => [
                 App\GraphQL\Queries\WineQuery::class,
                 App\GraphQL\Queries\WinesQuery::class,
-                App\GraphQL\Queries\UsersQuery::class,
+                App\GraphQL\Queries\ProfileQuery::class,
             ],
             'mutation' => [
-                App\GraphQL\Mutations\LoginMutation::class,
             ],
         ],
         'secret' => [
