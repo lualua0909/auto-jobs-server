@@ -3,7 +3,6 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\User;
-use Auth;
 use Closure;
 use GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -19,7 +18,7 @@ class UsersQuery extends Query
     public function authorize($root, array $args, $ctx, ResolveInfo $resolveInfo = null, Closure $getSelectFields = null): bool
     {
         if (isset($args['id'])) {
-            return Auth::id() == $args['id'];
+            return auth()->id() == $args['id'];
         }
 
         return true;
@@ -46,7 +45,7 @@ class UsersQuery extends Query
 
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
-        return User::where('created_by', Auth::id())
+        return User::where('created_by', auth()->id())
             ->paginate($args['limit'], ['*'], 'page', $args['page']);
     }
 }

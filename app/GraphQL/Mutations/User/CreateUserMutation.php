@@ -24,20 +24,30 @@ class CreateUserMutation extends Mutation
         return [
             'name' => [
                 'type' => Type::nonNull(Type::string()),
-                'rules' => ['required'],
+                'rules' => ['required', 'string'],
             ],
             'email' => [
                 'type' => Type::nonNull(Type::string()),
-                'rules' => ['required', 'email', 'unique:users'],
+                'rules' => ['required', 'email', 'unique:users', 'max:255'],
             ],
+            'phone' => [
+                'type' => Type::nonNull(Type::string()),
+                'rules' => ['required', 'unique:users'],
+            ],
+            'password' => [
+                'type' => Type::nonNull(Type::string()),
+                'rules' => ['required', 'min:6'],
+            ]
         ];
     }
 
     public function resolve($root, $args)
     {
-        $user = new User();
-        $user->fill($args);
-        $user->save();
+        $args['password'] = bcrypt($args['password']);
+        $user = User::create($args);
+        if (!$user) {
+            return null;
+        }
 
         return $user;
     }

@@ -11,7 +11,7 @@ use Rebing\GraphQL\Support\Mutation;
 class DeleteUserMutation extends Mutation
 {
     protected $attributes = [
-        'name' => 'user/DeleteUser',
+        'name' => 'deleteUser',
         'description' => 'A mutation',
     ];
 
@@ -34,7 +34,6 @@ class DeleteUserMutation extends Mutation
     public function resolve($root, $args)
     {
         $category = User::findOrFail($args['id']);
-
         return $category->delete();
     }
 }

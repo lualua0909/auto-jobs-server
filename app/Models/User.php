@@ -2,17 +2,25 @@
 
 namespace App\Models;
 
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Ward;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasRoles, Notifiable;
+    use HasRoles, Notifiable, SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name',
+        'email', 'phone', 'password', 'street',
+        'ward_id', 'district_id',
+        'province_id', 'created_by'];
 
+    protected $guarded = ['id'];
+
+    protected $hidden = ['password']; // bỏ password ra khỏi response
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -31,5 +39,30 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function created_by_user()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id')->select(['id', 'name']);
+    }
+
+    public function child_users()
+    {
+        return $this->hasMany(User::class, 'created_by', 'id')->select(['id', 'name']);
+    }
+
+    public function ward()
+    {
+        return $this->belongsTo(Ward::class, 'ward_id', 'id')->select(['id', 'name']);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id')->select(['id', 'name']);
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id', 'id')->select(['id', 'name']);
     }
 }

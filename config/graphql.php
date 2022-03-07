@@ -10,7 +10,11 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                App\GraphQL\Queries\ProfileQuery::class,
+                'user' => App\GraphQL\Queries\UserQuery::class,
+                'wards' => App\GraphQL\Queries\WardsQuery::class,
+            ],
+            'mutation' => [
+                'createUser' => App\GraphQL\Mutations\User\CreateUserMutation::class
             ],
         ],
         'secret' => [
@@ -19,7 +23,6 @@ return [
                 'users' => App\GraphQL\Queries\UsersQuery::class,
             ],
             'mutation' => [
-                'createUser' => App\GraphQL\Mutations\User\CreateUserMutation::class,
                 'deleteUser' => App\GraphQL\Mutations\User\DeleteUserMutation::class,
                 'updateUser' => App\GraphQL\Mutations\User\UpdateUserMutation::class,
             ],
@@ -28,6 +31,7 @@ return [
     ],
     'types' => [
         'User' => App\GraphQL\Types\UserType::class,
+        'Ward' => App\GraphQL\Types\WardType::class,
     ],
     'lazyload_types' => true,
     'error_formatter' => ['\Rebing\GraphQL\GraphQL', 'formatError'],
