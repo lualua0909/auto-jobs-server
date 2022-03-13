@@ -10,7 +10,7 @@ class UserType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'User',
-        'description' => 'A type'
+        'description' => 'A type of user'
     ];
 
     public function fields(): array

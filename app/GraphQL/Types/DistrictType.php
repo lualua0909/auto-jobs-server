@@ -2,15 +2,15 @@
 
 namespace App\GraphQL\Types;
 
-use App\Models\Ward;
+use App\Models\District;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class WardType extends GraphQLType
+class DistrictType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'Ward',
-        'description' => 'A type of Ward'
+        'name' => 'District',
+        'description' => 'A type of district'
     ];
 
     public function fields(): array
@@ -25,7 +25,7 @@ class WardType extends GraphQLType
             'name' => [
                 'type' => Type::nonNull(Type::string())
             ],
-            'district_id' => [
+            'province_id' => [
                 'type' => Type::nonNull(Type::int())
             ]
         ];

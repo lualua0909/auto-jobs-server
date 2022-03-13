@@ -2,15 +2,15 @@
 
 namespace App\GraphQL\Types;
 
-use App\Models\Ward;
+use App\Models\DegreeCertificate;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class WardType extends GraphQLType
+class DegreeCertificateType  extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'Ward',
-        'description' => 'A type of Ward'
+        'name' => 'DegreeCertificate',
+        'description' => 'A type of DegreeCertificate'
     ];
 
     public function fields(): array
@@ -19,14 +19,17 @@ class WardType extends GraphQLType
             'id' => [
                 'type' => Type::nonNull(Type::int())
             ],
-            'gso_id' => [
-                'type' => Type::nonNull(Type::string())
-            ],
             'name' => [
                 'type' => Type::nonNull(Type::string())
             ],
-            'district_id' => [
-                'type' => Type::nonNull(Type::int())
+            'email' => [
+                'type' => Type::nonNull(Type::string())
+            ],
+            'created_at' => [
+                'type' => Type::nonNull(Type::string())
+            ],
+            'updated_at' => [
+                'type' => Type::nonNull(Type::string())
             ]
         ];
     }

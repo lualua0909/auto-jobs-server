@@ -12,15 +12,22 @@ return [
             'query' => [
                 'user' => App\GraphQL\Queries\UserQuery::class,
                 'wards' => App\GraphQL\Queries\WardsQuery::class,
+                'districts' => App\GraphQL\Queries\DistrictsQuery::class,
+                'provinces' => App\GraphQL\Queries\ProvincesQuery::class,
             ],
             'mutation' => [
-                'createUser' => App\GraphQL\Mutations\User\CreateUserMutation::class
+                'createUser' => App\GraphQL\Mutations\User\CreateUserMutation::class,
             ],
         ],
         'secret' => [
             'query' => [
                 'user' => App\GraphQL\Queries\UserQuery::class,
                 'users' => App\GraphQL\Queries\UsersQuery::class,
+                'job' => App\GraphQL\Queries\JobQuery::class,
+                'jobs' => App\GraphQL\Queries\JobsQuery::class,
+                'company' => App\GraphQL\Queries\CompanyQuery::class,
+                'companyList' => App\GraphQL\Queries\CompanyListQuery::class,
+                'degreeCertificateList' => App\GraphQL\Queries\DegreeCertificateListQuery::class,
             ],
             'mutation' => [
                 'deleteUser' => App\GraphQL\Mutations\User\DeleteUserMutation::class,
@@ -32,6 +39,11 @@ return [
     'types' => [
         'User' => App\GraphQL\Types\UserType::class,
         'Ward' => App\GraphQL\Types\WardType::class,
+        'District' => App\GraphQL\Types\DistrictType::class,
+        'Province' => App\GraphQL\Types\ProvinceType::class,
+        'Job' => App\GraphQL\Types\JobType::class,
+        'Company' => App\GraphQL\Types\CompanyType::class,
+        'DegreeCertificate' => App\GraphQL\Types\DegreeCertificateType::class,
     ],
     'lazyload_types' => true,
     'error_formatter' => ['\Rebing\GraphQL\GraphQL', 'formatError'],
