@@ -9,7 +9,7 @@ use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 
-class DistrictsType extends Query
+class DistrictsQuery extends Query
 {
     protected $attributes = [
         'name' => 'districts',

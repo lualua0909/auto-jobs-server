@@ -3,7 +3,6 @@
 use App\Http\Controllers\AuthenticateController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 Route::get('/', function () {
@@ -14,9 +13,9 @@ Route::post('login', [AuthenticateController::class, 'authenticate']);
 
 Route::get('test-1', function () {
     $user = User::where('id', 5)
-    ->with('created_by_user:id,name,created_at')
-    ->with('ward:id,name,created_at')
-    ->first();
+        ->with('created_by_user:id,name,created_at')
+        ->with('ward:id,name,created_at')
+        ->first();
     return $user;
 });
 
