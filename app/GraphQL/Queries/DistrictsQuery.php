@@ -26,6 +26,7 @@ class DistrictsQuery extends Query
             'province_id' => [
                 'name' => 'province_id',
                 'type' => Type::int(),
+                'rules' => ['required'],
             ],
         ];
     }

@@ -13,10 +13,16 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasRoles, Notifiable, SoftDeletes;
 
-    protected $fillable = ['name',
-        'email', 'phone', 'password', 'street',
-        'ward_id', 'district_id',
-        'province_id', 'created_by'];
+    protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'password',
+        'street_name',
+        'ward_id',
+        'district_id',
+        'province_id',
+        'created_by'];
 
     protected $guarded = ['id'];
 

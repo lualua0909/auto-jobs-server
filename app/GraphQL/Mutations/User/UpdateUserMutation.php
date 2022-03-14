@@ -1,22 +1,19 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\GraphQL\Mutations\User;
 
+use App\Models\User;
 use GraphQL;
-use Closure;
-use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
-use Rebing\GraphQL\Support\SelectFields;
-use App\Models\User;
 
 class UpdateUserMutation extends Mutation
 {
     protected $attributes = [
-        'name' => 'user/UpdateUser',
-        'description' => 'A mutation'
+        'name' => 'updateUser',
+        'description' => 'A mutation',
     ];
 
     public function type(): Type
@@ -28,12 +25,36 @@ class UpdateUserMutation extends Mutation
     {
         return [
             'id' => [
-                'name' => 'id',
-                'type' =>  Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::int()),
+                'rules' => ['required'],
             ],
             'name' => [
-                'name' => 'name',
-                'type' =>  Type::nonNull(Type::string()),
+                'type' => Type::nonNull(Type::string()),
+            ],
+            'email' => [
+                'type' => Type::nonNull(Type::string()),
+                'rules' => ['email', 'unique:users', 'min:3', 'max:255'],
+            ],
+            'phone' => [
+                'type' => Type::nonNull(Type::string()),
+                'rules' => ['required', 'unique:users', 'min:6', 'max:20'],
+            ],
+            'street_name' => [
+                'type' => Type::nonNull(Type::string()),
+                'rules' => ['min:6'],
+            ],
+            'ward_id' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'district_id' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'province_id' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'password' => [
+                'type' => Type::nonNull(Type::string()),
+                'rules' => ['min:6'],
             ],
         ];
     }
@@ -41,6 +62,7 @@ class UpdateUserMutation extends Mutation
     public function resolve($root, $args)
     {
         $user = User::findOrFail($args['id']);
+        $args['password'] = $args['password'] ? bcrypt($args['password']) : $user->password;
         $user->fill($args);
         $user->save();
 

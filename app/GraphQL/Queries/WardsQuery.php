@@ -26,6 +26,7 @@ class WardsQuery extends Query
             'district_id' => [
                 'name' => 'district_id',
                 'type' => Type::int(),
+                'rules' => ['required'],
             ],
         ];
     }

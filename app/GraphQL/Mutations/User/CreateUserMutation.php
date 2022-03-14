@@ -28,16 +28,29 @@ class CreateUserMutation extends Mutation
             ],
             'email' => [
                 'type' => Type::nonNull(Type::string()),
-                'rules' => ['required', 'email', 'unique:users', 'max:255'],
+                'rules' => ['email', 'unique:users', 'min:3', 'max:255'],
             ],
             'phone' => [
                 'type' => Type::nonNull(Type::string()),
-                'rules' => ['required', 'unique:users'],
+                'rules' => ['required', 'unique:users', 'min:6', 'max:20'],
+            ],
+            'street_name' => [
+                'type' => Type::nonNull(Type::string()),
+                'rules' => ['required', 'min:6'],
+            ],
+            'ward_id' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'district_id' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'province_id' => [
+                'type' => Type::nonNull(Type::int()),
             ],
             'password' => [
                 'type' => Type::nonNull(Type::string()),
                 'rules' => ['required', 'min:6'],
-            ]
+            ],
         ];
     }
 
