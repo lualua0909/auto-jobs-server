@@ -9,7 +9,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('login', [AuthenticateController::class, 'authenticate']);
+Route::post('graphql/login', [AuthenticateController::class, 'authenticate']);
 
 Route::get('test-1', function () {
     $user = User::where('id', 5)
