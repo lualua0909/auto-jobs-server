@@ -10,6 +10,8 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $table = 'companies';
+
     protected $fillable = [
         'name',
         'company_type_id',
@@ -27,7 +29,7 @@ class Company extends Model
 
     public function companyType()
     {
-        return $this->belongsTo(CompanyType::class);
+        return $this->belongsTo(CompanyType::class, 'company_type_id');
     }
 
     public function representative()

@@ -9,14 +9,12 @@ class CompanyType extends Model
 {
     use HasFactory;
 
+    protected $table = 'company_types';
+    
     protected $fillable = [
+        'id',
         'name',
         'created_at',
         'updated_at',
     ];
-
-    public function companies()
-    {
-        return $this->hasMany(Company::class);
-    }
 }

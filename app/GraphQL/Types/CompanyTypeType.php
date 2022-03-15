@@ -2,15 +2,15 @@
 
 namespace App\GraphQL\Types;
 
-use App\Models\DegreeCertificate;
+use App\Models\CompanyType;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class DegreeCertificateType  extends GraphQLType
+class CompanyTypeType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'DegreeCertificate',
-        'description' => 'A type of DegreeCertificate'
+        'name' => 'CompanyType',
+        'description' => 'A type of CompanyType'
     ];
 
     public function fields(): array
@@ -19,7 +19,7 @@ class DegreeCertificateType  extends GraphQLType
             'id' => [
                 'type' => Type::nonNull(Type::int())
             ],
-            'title' => [
+            'name' => [
                 'type' => Type::nonNull(Type::string())
             ],
             'created_at' => [

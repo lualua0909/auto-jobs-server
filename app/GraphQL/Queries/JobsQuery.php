@@ -45,7 +45,6 @@ class JobsQuery extends Query
 
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
-        return Job::where('created_by', auth()->id())
-            ->paginate($args['limit'], ['*'], 'page', $args['page']);
+        return Job::paginate($args['limit'], ['*'], 'page', $args['page']);
     }
 }

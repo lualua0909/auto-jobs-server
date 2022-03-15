@@ -44,6 +44,7 @@ return [
         'Job' => App\GraphQL\Types\JobType::class,
         'Company' => App\GraphQL\Types\CompanyType::class,
         'DegreeCertificate' => App\GraphQL\Types\DegreeCertificateType::class,
+        'CompanyType' => App\GraphQL\Types\CompanyTypeType::class,
     ],
     'lazyload_types' => true,
     'error_formatter' => ['\Rebing\GraphQL\GraphQL', 'formatError'],

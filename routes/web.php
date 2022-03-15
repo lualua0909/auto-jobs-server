@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthenticateController;
 use App\Models\User;
+use App\Models\Company;
+use App\Models\CompanyType;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
 
@@ -12,10 +14,8 @@ Route::get('/', function () {
 Route::post('graphql/login', [AuthenticateController::class, 'authenticate']);
 
 Route::get('test-1', function () {
-    $user = User::where('id', 5)
-        ->with('created_by_user:id,name,created_at')
-        ->with('ward:id,name,created_at')
-        ->first();
+    $user = Company::with('companyType')
+        ->get();
     return $user;
 });
 
