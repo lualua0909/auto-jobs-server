@@ -31,7 +31,7 @@ class JobQuery extends Query
 
     public function resolve($root, $args)
     {
-        $Job = Job::findOrFail($args['id']);
-        return auth()->id() === $Job->created_by ? $Job : null;
+        $job = Job::findOrFail($args['id']);
+        return $job;
     }
 }
