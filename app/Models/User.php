@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Ward;
+use App\Models\District;
+use App\Models\Province;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -61,16 +63,16 @@ class User extends Authenticatable implements JWTSubject
 
     public function ward()
     {
-        return $this->belongsTo(Ward::class, 'ward_id', 'id')->select(['id', 'name']);
+        return $this->belongsTo(Ward::class);
     }
 
     public function district()
     {
-        return $this->belongsTo(District::class, 'district_id', 'id')->select(['id', 'name']);
+        return $this->belongsTo(District::class);
     }
 
     public function province()
     {
-        return $this->belongsTo(Province::class, 'province_id', 'id')->select(['id', 'name']);
+        return $this->belongsTo(Province::class);
     }
 }
