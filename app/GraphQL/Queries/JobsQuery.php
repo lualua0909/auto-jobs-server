@@ -34,9 +34,11 @@ class JobsQuery extends Query
         return [
             'limit' => [
                 'type' => Type::int(),
+                'default' => 4,
             ],
             'page' => [
                 'type' => Type::int(),
+                'default' => 1,
             ],
             'except_by_id' => [
                 'type' => Type::listOf(Type::int()),

@@ -30,19 +30,22 @@ class CompanyListQuery extends Query
         return [
             'limit' => [
                 'type' => Type::int(),
+                'default' => 4,
             ],
             'page' => [
                 'type' => Type::int(),
+                'default' => 1,
             ],
             'orderBy' => [
                 'type' => Type::string(),
+                'default' => 'id',
             ],
         ];
     }
 
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
-        return Company::orderBy($args['orderBy'] ?? 'id', 'desc')
+        return Company::orderBy($args['orderBy'], 'desc')
             ->paginate($args['limit'], ['*'], 'page', $args['page']);
     }
 }
