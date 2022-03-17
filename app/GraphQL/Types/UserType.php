@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Types;
 
-use App\Models\User;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
@@ -10,20 +9,29 @@ class UserType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'User',
-        'description' => 'A type of user'
+        'description' => 'A type of user',
     ];
 
     public function fields(): array
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int())
+                'type' => Type::nonNull(Type::int()),
             ],
             'name' => [
-                'type' => Type::nonNull(Type::string())
+                'type' => Type::nonNull(Type::string()),
             ],
             'email' => [
-                'type' => Type::nonNull(Type::string())
+                'type' => Type::nonNull(Type::string()),
+            ],
+            'gender' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'birth_date' => [
+                'type' => Type::nonNull(Type::string()),
+            ],
+            'phone' => [
+                'type' => Type::nonNull(Type::string()),
             ],
             'street_name' => [
                 'type' => Type::nonNull(Type::string()),
@@ -38,11 +46,11 @@ class UserType extends GraphQLType
                 'type' => Type::nonNull(Type::int()),
             ],
             'created_at' => [
-                'type' => Type::nonNull(Type::string())
+                'type' => Type::nonNull(Type::string()),
             ],
             'updated_at' => [
-                'type' => Type::nonNull(Type::string())
-            ]
+                'type' => Type::nonNull(Type::string()),
+            ],
         ];
     }
 }

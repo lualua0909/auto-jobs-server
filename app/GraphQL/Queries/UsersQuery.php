@@ -15,15 +15,6 @@ class UsersQuery extends Query
         'name' => 'users',
     ];
 
-    public function authorize($root, array $args, $ctx, ResolveInfo $resolveInfo = null, Closure $getSelectFields = null): bool
-    {
-        if (isset($args['id'])) {
-            return auth()->id() == $args['id'];
-        }
-
-        return true;
-    }
-
     public function type(): Type
     {
         return GraphQL::paginate('User');
@@ -33,19 +24,18 @@ class UsersQuery extends Query
     {
         return [
             'limit' => [
-                'name' => 'limit',
                 'type' => Type::int(),
+                'default' => 4,
             ],
             'page' => [
-                'name' => 'page',
                 'type' => Type::int(),
+                'default' => 1,
             ],
         ];
     }
 
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
-        return User::where('created_by', auth()->id())
-            ->paginate($args['limit'], ['*'], 'page', $args['page']);
+        return User::paginate($args['limit'], ['*'], 'page', $args['page']);
     }
 }
