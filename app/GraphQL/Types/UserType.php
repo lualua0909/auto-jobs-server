@@ -27,6 +27,9 @@ class UserType extends GraphQLType
             'gender' => [
                 'type' => Type::nonNull(Type::int()),
             ],
+            'total_rating' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
             'birth_date' => [
                 'type' => Type::nonNull(Type::string()),
             ],
