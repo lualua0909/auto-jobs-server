@@ -33,18 +33,24 @@ class JobsQuery extends Query
     {
         return [
             'limit' => [
-                'name' => 'limit',
                 'type' => Type::int(),
             ],
             'page' => [
-                'name' => 'page',
                 'type' => Type::int(),
+            ],
+            'except_by_id' => [
+                'type' => Type::listOf(Type::int()),
+                'default' => null,
             ],
         ];
     }
 
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
-        return Job::paginate($args['limit'], ['*'], 'page', $args['page']);
+        $query = new Job;
+        if (isset($args['except_by_id']) && is_array($args['except_by_id'])) {
+            $query = $query->whereNotIn('id', $args['except_by_id']);
+        }
+        return $query->paginate($args['limit'], ['*'], 'page', $args['page']);
     }
 }
