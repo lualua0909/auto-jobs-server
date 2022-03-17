@@ -39,14 +39,14 @@ class UserType extends GraphQLType
             'street_name' => [
                 'type' => Type::nonNull(Type::string()),
             ],
-            'ward_id' => [
-                'type' => Type::nonNull(Type::int()),
+            'ward' => [
+                'type' => GraphQL::type('Ward'),
             ],
-            'district_id' => [
-                'type' => Type::nonNull(Type::int()),
+            'district' => [
+                'type' => GraphQL::type('District'),
             ],
-            'province_id' => [
-                'type' => Type::nonNull(Type::int()),
+            'province' => [
+                'type' => GraphQL::type('Province'),
             ],
             'created_at' => [
                 'type' => Type::nonNull(Type::string()),
