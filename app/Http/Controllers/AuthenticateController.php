@@ -37,6 +37,11 @@ class AuthenticateController extends Controller
         }
 
         // all good so return the token
-        return response()->json(compact('token'));
+        return response()->json([
+            'token' => $token,
+            'user_info' => $this->jwt->user()->only('id', 'name', 'total_rating', 'email', 'phone'),
+            'token_type' => 'bearer',
+            'expires_in' => $this->jwt->factory()->getTTL() * 60,
+        ]);
     }
 }
