@@ -16,6 +16,8 @@ class Company extends Model
         'name',
         'company_type_id',
         'company_size',
+        'phone',
+        'total_rating',
         'street_name',
         'ward_id',
         'district_id',
@@ -65,10 +67,5 @@ class Company extends Model
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function getFullAddressAttribute()
-    {
-        return $this->street_name . ', ' . $this->ward->name . ', ' . $this->district->name . ', ' . $this->province->name;
     }
 }

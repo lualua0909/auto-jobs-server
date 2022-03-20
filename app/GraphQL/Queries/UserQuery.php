@@ -32,6 +32,6 @@ class UserQuery extends Query
     public function resolve($root, $args)
     {
         $user = User::findOrFail($args['id']);
-        return auth()->id() === $user->created_by ? $user : null;
+        return $user;
     }
 }

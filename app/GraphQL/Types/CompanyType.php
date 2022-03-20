@@ -22,10 +22,16 @@ class CompanyType extends GraphQLType
             'name' => [
                 'type' => Type::nonNull(Type::string()),
             ],
+            'phone' => [
+                'type' => Type::nonNull(Type::string()),
+            ],
             'company_type_id' => [
                 'type' => Type::nonNull(Type::int()),
             ],
             'company_size' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'total_rating' => [
                 'type' => Type::nonNull(Type::int()),
             ],
             'street_name' => [
