@@ -31,7 +31,7 @@ class CompanyQuery extends Query
 
     public function resolve($root, $args)
     {
-        $Company = Company::findOrFail($args['id']);
-        return auth()->id() === $Company->created_by ? $Company : null;
+        $company = Company::findOrFail($args['id']);
+        return $company;
     }
 }
