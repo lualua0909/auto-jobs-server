@@ -30,7 +30,7 @@ class UsersQuery extends Query
             'page' => [
                 'type' => Type::int(),
                 'default' => 1,
-            ],
+            ]
         ];
     }
 

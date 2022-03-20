@@ -61,6 +61,9 @@ class UserType extends GraphQLType
             'updated_at' => [
                 'type' => Type::nonNull(Type::string()),
             ],
+            'job_saved' => [
+                'type' => Type::listOf(GraphQL::type('Job')),
+            ]
         ];
     }
 }

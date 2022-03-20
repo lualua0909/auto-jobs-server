@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\DegreeCertificate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\DegreeCertificate;
 
 class Job extends Model
 {

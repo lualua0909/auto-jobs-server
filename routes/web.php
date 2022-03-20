@@ -14,8 +14,7 @@ Route::get('/', function () {
 Route::post('graphql/login', [AuthenticateController::class, 'authenticate']);
 
 Route::get('test-1', function () {
-    $user = Company::with('companyType')
-        ->get();
+    $user = User::with('job_saved')->first();
     return $user;
 });
 

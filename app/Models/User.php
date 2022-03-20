@@ -77,4 +77,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(Province::class);
     }
+
+    public function job_saved()
+    {
+        return $this->belongsToMany(Job::class, 'job_saved', 'user_id', 'job_id');
+    }
 }
