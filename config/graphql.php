@@ -28,6 +28,8 @@ return [
                 'company' => App\GraphQL\Queries\CompanyQuery::class,
                 'companyList' => App\GraphQL\Queries\CompanyListQuery::class,
                 'degreeCertificateList' => App\GraphQL\Queries\DegreeCertificateListQuery::class,
+                'notifications' => App\GraphQL\Queries\NotificationsQuery::class,
+                'notification' => App\GraphQL\Queries\NotificationQuery::class,
             ],
             'mutation' => [
                 'deleteUser' => App\GraphQL\Mutations\User\DeleteUserMutation::class,
@@ -45,6 +47,8 @@ return [
         'Company' => App\GraphQL\Types\CompanyType::class,
         'DegreeCertificate' => App\GraphQL\Types\DegreeCertificateType::class,
         'CompanyType' => App\GraphQL\Types\CompanyTypeType::class,
+        'Notification' => App\GraphQL\Types\NotificationType::class,
+        'NotificationTemplate' => App\GraphQL\Types\NotificationTemplateType::class,
     ],
     'lazyload_types' => true,
     'error_formatter' => ['\Rebing\GraphQL\GraphQL', 'formatError'],

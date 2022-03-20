@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Types;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
-use GraphQL;
 
 class UserType extends GraphQLType
 {
@@ -30,6 +30,12 @@ class UserType extends GraphQLType
             ],
             'total_rating' => [
                 'type' => Type::nonNull(Type::int()),
+            ],
+            'hourly_salary' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'description' => [
+                'type' => Type::string(),
             ],
             'birth_date' => [
                 'type' => Type::nonNull(Type::string()),

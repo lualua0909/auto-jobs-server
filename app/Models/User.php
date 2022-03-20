@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Ward;
 use App\Models\District;
 use App\Models\Province;
+use App\Models\Ward;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,6 +20,8 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'phone',
         'gender',
+        'hourly_salary',
+        'description',
         'birth_date',
         'password',
         'street_name',
