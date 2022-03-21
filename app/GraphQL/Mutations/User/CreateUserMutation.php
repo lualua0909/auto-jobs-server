@@ -90,6 +90,10 @@ class CreateUserMutation extends Mutation
                     'representative_id' => $user->id,
                     'created_by' => $user->id,
                 ]);
+
+                $user->role = 'employer';
+                $user->assignRole('employer');
+                $user->save();
             }
 
             \DB::commit();
