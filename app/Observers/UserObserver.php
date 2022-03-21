@@ -14,12 +14,7 @@ class UserObserver
      */
     public function saving(User $user)
     {
-        if (isset($user->is_employer) && $user->is_employer == 1) {
-            $user->role = 'employer';
-            $user->assignRole('employer');
-        } else {
-            $user->role = 'user';
-            $user->assignRole('user');
-        }
+        $user->role = 'user';
+        $user->assignRole('user');
     }
 }
