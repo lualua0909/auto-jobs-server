@@ -28,7 +28,7 @@ class CreateUserMutation extends Mutation
                 'rules' => ['required', 'string'],
             ],
             'email' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'rules' => ['email', 'unique:users', 'min:3', 'max:255'],
             ],
             'phone' => [
@@ -72,7 +72,7 @@ class CreateUserMutation extends Mutation
         try {
             \DB::beginTransaction();
             $args['password'] = bcrypt($args['password']);
-            $user = User::create($args);
+            $user = User::create(collect($args)->only(['name', 'email', 'phone', 'street_name', 'ward_id', 'district_id', 'province_id', 'password'])->toArray());
 
             if ($user->id && $args['is_employer']) {
                 $company = Company::create([
