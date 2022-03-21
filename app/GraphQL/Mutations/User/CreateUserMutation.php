@@ -75,21 +75,21 @@ class CreateUserMutation extends Mutation
             $user = User::create($args);
 
             if ($user->id && $args['is_employer']) {
-                $company = Company::create([
-                    'name' => $args['name'],
-                    'company_type_id' => $args['company_type_id'],
-                    'company_size' => $args['company_size'],
-                    'phone' => $args['phone'],
-                    'total_rating' => 0,
-                    'street_name' => $args['street_name'],
-                    'ward_id' => $args['ward_id'],
-                    'district_id' => $args['district_id'],
-                    'province_id' => $args['province_id'],
-                    'description' => $args['description'],
-                    'email' => $args['email'],
-                    'representative_id' => $user->id,
-                    'created_by' => $user->id,
-                ]);
+                // $company = Company::create([
+                //     'name' => $args['name'],
+                //     'company_type_id' => $args['company_type_id'],
+                //     'company_size' => $args['company_size'],
+                //     'phone' => $args['phone'],
+                //     'total_rating' => 0,
+                //     'street_name' => $args['street_name'],
+                //     'ward_id' => $args['ward_id'],
+                //     'district_id' => $args['district_id'],
+                //     'province_id' => $args['province_id'],
+                //     'description' => $args['description'],
+                //     'email' => $args['email'],
+                //     'representative_id' => $user->id,
+                //     'created_by' => $user->id,
+                // ]);
             }
 
             \DB::commit();
