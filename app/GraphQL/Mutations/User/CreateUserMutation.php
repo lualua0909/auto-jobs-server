@@ -73,6 +73,9 @@ class CreateUserMutation extends Mutation
             \DB::beginTransaction();
             $args['password'] = bcrypt($args['password']);
             $user = User::create(collect($args)->only(['name', 'email', 'description', 'phone', 'street_name', 'ward_id', 'district_id', 'province_id', 'password'])->toArray());
+            
+            $user->role = 'user';
+            $user->assignRole('user');
 
             if ($user && $user->id && isset($args['company_type_id']) && $args['company_type_id']) {
                 $company = Company::create([
@@ -92,6 +95,7 @@ class CreateUserMutation extends Mutation
                 ]);
 
                 $user->role = 'employer';
+                $user->removeRole('user');
                 $user->assignRole('employer');
                 $user->save();
             }

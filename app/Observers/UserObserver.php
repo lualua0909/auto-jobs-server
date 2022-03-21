@@ -14,7 +14,5 @@ class UserObserver
      */
     public function saving(User $user)
     {
-        $user->role = 'user';
-        $user->assignRole('user');
     }
 }
