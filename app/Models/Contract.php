@@ -11,6 +11,7 @@ class Contract extends Model
 
     protected $fillable = [
         'user_id',
+        'employer_id',
         'job_id',
         'status',
         'created_at',
@@ -31,5 +32,10 @@ class Contract extends Model
     public function history()
     {
         return $this->hasMany(ContractHistory::class, 'contract_id', 'id');
+    }
+
+    public function employer()
+    {
+        return $this->belongsTo(User::class, 'employer_id', 'id');
     }
 }
