@@ -72,9 +72,9 @@ class CreateUserMutation extends Mutation
         try {
             \DB::beginTransaction();
             $args['password'] = bcrypt($args['password']);
-            $user = User::create(collect($args)->only(['name', 'email', 'phone', 'street_name', 'ward_id', 'district_id', 'province_id', 'password'])->toArray());
+            $user = User::create(collect($args)->only(['name', 'email', 'description', 'phone', 'street_name', 'ward_id', 'district_id', 'province_id', 'password'])->toArray());
 
-            if ($user && $user->id && isset($args['is_employer']) && $args['is_employer'] == 1) {
+            if ($user && $user->id && isset($args['company_type_id']) && $args['company_type_id']) {
                 $company = Company::create([
                     'name' => $args['name'],
                     'company_type_id' => $args['company_type_id'],
@@ -93,7 +93,7 @@ class CreateUserMutation extends Mutation
             }
 
             \DB::commit();
-            return $user ?? null;
+            return $user;
         } catch (\Exception$e) {
             \DB::rollback();
             return $e->getMessage();

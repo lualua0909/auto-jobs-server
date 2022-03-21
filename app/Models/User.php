@@ -18,6 +18,7 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name',
         'email',
+        'description',
         'phone',
         'gender',
         'hourly_salary',
@@ -29,8 +30,6 @@ class User extends Authenticatable implements JWTSubject
         'district_id',
         'province_id',
         'created_by'];
-
-    protected $guarded = ['id'];
 
     protected $hidden = ['password']; // bỏ password ra khỏi response
     /**
