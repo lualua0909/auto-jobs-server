@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\User;
 
+use App\Models\Company;
 use App\Models\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
@@ -47,6 +48,18 @@ class CreateUserMutation extends Mutation
             'province_id' => [
                 'type' => Type::nonNull(Type::int()),
             ],
+            'is_employer' => [
+                'type' => Type::int(),
+            ],
+            'company_type_id' => [
+                'type' => Type::int(),
+            ],
+            'company_size' => [
+                'type' => Type::int(),
+            ],
+            'description' => [
+                'type' => Type::string(),
+            ],
             'password' => [
                 'type' => Type::nonNull(Type::string()),
                 'rules' => ['required', 'min:6'],
@@ -56,12 +69,34 @@ class CreateUserMutation extends Mutation
 
     public function resolve($root, $args)
     {
-        $args['password'] = bcrypt($args['password']);
-        $user = User::create($args);
-        if (!$user) {
-            return null;
+        try {
+            \DB::beginTransaction();
+            $args['password'] = bcrypt($args['password']);
+            $user = User::create($args);
+
+            if ($user && $args['is_employer']) {
+                $company = Company::create([
+                    'name' => $args['name'],
+                    'company_type_id' => $args['company_type_id'],
+                    'company_size' => $args['company_size'],
+                    'phone' => $args['phone'],
+                    'total_rating' => 0,
+                    'street_name' => $args['street_name'],
+                    'ward_id' => $args['ward_id'],
+                    'district_id' => $args['district_id'],
+                    'province_id' => $args['province_id'],
+                    'description' => $args['description'],
+                    'email' => $args['email'],
+                    'representative_id' => $user->id,
+                    'created_by' => $user->id,
+                ]);
+            }
+
+            \DB::commit();
+            return $user ?? null;
+        } catch (\Exception$e) {
+            \DB::rollback();
         }
 
-        return $user;
     }
 }

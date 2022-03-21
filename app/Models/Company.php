@@ -17,6 +17,7 @@ class Company extends Model
         'company_type_id',
         'company_size',
         'phone',
+        'email',
         'total_rating',
         'street_name',
         'ward_id',
