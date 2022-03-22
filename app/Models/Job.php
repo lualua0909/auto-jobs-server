@@ -61,4 +61,8 @@ class Job extends Model
     {
         return $this->belongsTo(DegreeCertificate::class, 'degree_required_id');
     }
+
+    public function contracts() {
+        return $this->hasMany(Contract::class, 'job_id');
+    }
 }

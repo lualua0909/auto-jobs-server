@@ -76,6 +76,10 @@ class JobType extends GraphQLType
             'degreeRequired' => [
                 'type' => GraphQL::type('DegreeCertificate'),
             ],
+            'contracts' => [
+                'type' => Type::listOf(GraphQL::type('Contract')),
+            ],
         ];
+
     }
 }
