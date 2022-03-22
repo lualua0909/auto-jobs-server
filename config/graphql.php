@@ -15,7 +15,6 @@ return [
                 App\GraphQL\Queries\UsersQuery::class,
             ],
             'mutation' => [
-                App\GraphQL\Mutations\LoginMutation::class,
             ],
         ],
         'secret' => [
