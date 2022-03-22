@@ -32,6 +32,10 @@ return [
                 'notification' => App\GraphQL\Queries\NotificationQuery::class,
                 'contracts' => App\GraphQL\Queries\ContractsQuery::class,
                 'contract' => App\GraphQL\Queries\ContractQuery::class,
+                'wards' => App\GraphQL\Queries\WardsQuery::class,
+                'districts' => App\GraphQL\Queries\DistrictsQuery::class,
+                'provinces' => App\GraphQL\Queries\ProvincesQuery::class,
+                'user' => App\GraphQL\Queries\UserQuery::class,
             ],
             'mutation' => [
                 'deleteUser' => App\GraphQL\Mutations\User\DeleteUserMutation::class,
