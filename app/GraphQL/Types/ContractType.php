@@ -19,6 +19,15 @@ class ContractType extends GraphQLType
             'id' => [
                 'type' => Type::int(),
             ],
+            'job_id' => [
+                'type' => Type::int(),
+            ],
+            'user_id' => [
+                'type' => Type::int(),
+            ],
+            'employer_id' => [
+                'type' => Type::int(),
+            ],
             'user' => [
                 'type' => GraphQL::type('User'),
             ],
