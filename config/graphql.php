@@ -36,9 +36,9 @@ return [
             'mutation' => [
                 'deleteUser' => App\GraphQL\Mutations\User\DeleteUserMutation::class,
                 'updateUser' => App\GraphQL\Mutations\User\UpdateUserMutation::class,
-                // 'createJob' => App\GraphQL\Mutations\Job\CreateJobMutation::class,
-                // 'updateJob' => App\GraphQL\Mutations\Job\UpdateJobMutation::class,
-                // 'deleteJob' => App\GraphQL\Mutations\Job\DeleteJobMutation::class,
+                'createJob' => App\GraphQL\Mutations\Job\CreateJobMutation::class,
+                'updateJob' => App\GraphQL\Mutations\Job\UpdateJobMutation::class,
+                'deleteJob' => App\GraphQL\Mutations\Job\DeleteJobMutation::class,
                 'createContract' => App\GraphQL\Mutations\Contract\CreateContractMutation::class,
                 'updateContract' => App\GraphQL\Mutations\Contract\UpdateContractMutation::class,
 
