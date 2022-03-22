@@ -35,11 +35,11 @@ class CreateJobMutation extends Mutation
                 'rules' => ['required'],
             ],
             'requirements' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::string()),
                 'rules' => ['required'],
             ],
             'benefits' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(Type::string()),
                 'rules' => ['required'],
             ],
             'number_of_workers' => [
@@ -48,7 +48,6 @@ class CreateJobMutation extends Mutation
             ],
             'street_name' => [
                 'type' => Type::nonNull(Type::string()),
-                'rules' => ['required', 'min:6'],
             ],
             'ward_id' => [
                 'type' => Type::nonNull(Type::int()),

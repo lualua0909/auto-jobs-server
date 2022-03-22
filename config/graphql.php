@@ -41,7 +41,6 @@ return [
                 'deleteJob' => App\GraphQL\Mutations\Job\DeleteJobMutation::class,
                 'createContract' => App\GraphQL\Mutations\Contract\CreateContractMutation::class,
                 'updateContract' => App\GraphQL\Mutations\Contract\UpdateContractMutation::class,
-
             ],
             'middleware' => ['auth:api'],
         ],
