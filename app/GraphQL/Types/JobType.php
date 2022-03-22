@@ -47,7 +47,7 @@ class JobType extends GraphQLType
                 'type' => Type::nonNull(Type::string()),
             ],
             'start_time' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
             ],
             'end_time' => [
                 'type' => Type::nonNull(Type::string()),
