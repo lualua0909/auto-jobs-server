@@ -80,7 +80,7 @@ class JobType extends GraphQLType
                 'type' => Type::listOf(GraphQL::type('Contract')),
             ],
             'status' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
             ],
         ];
 
