@@ -2,43 +2,83 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\District;
+use App\Models\Province;
+use App\Models\Ward;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasRoles, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'id',
         'name',
         'email',
+        'description',
+        'phone',
+        'gender',
+        'hourly_salary',
+        'description',
+        'birth_date',
         'password',
-    ];
+        'street_name',
+        'ward_id',
+        'district_id',
+        'province_id',
+        'created_by'];
+
+    protected $hidden = ['password']; // bỏ password ra khỏi response
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
 
     /**
-     * The attributes that should be hidden for arrays.
+     * Return a key value array, containing any custom claims to be added to the JWT.
      *
-     * @var array
+     * @return array
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function created_by_user()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id')->select(['id', 'name']);
+    }
+
+    public function child_users()
+    {
+        return $this->hasMany(User::class, 'created_by', 'id')->select(['id', 'name']);
+    }
+
+    public function ward()
+    {
+        return $this->belongsTo(Ward::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function job_saved()
+    {
+        return $this->belongsToMany(Job::class, 'job_saved', 'user_id', 'job_id');
+    }
 }

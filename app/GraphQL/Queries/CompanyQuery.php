@@ -2,20 +2,20 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Wine;
+use App\Models\Company;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 
-class WineQuery extends Query
+class CompanyQuery extends Query
 {
     protected $attributes = [
-        'name' => 'wine',
+        'name' => 'Company',
     ];
 
     public function type(): Type
     {
-        return GraphQL::type('Wine');
+        return GraphQL::type('Company');
     }
 
     public function args(): array
@@ -31,6 +31,7 @@ class WineQuery extends Query
 
     public function resolve($root, $args)
     {
-        return Wine::findOrFail($args['id']);
+        $company = Company::findOrFail($args['id']);
+        return $company;
     }
 }

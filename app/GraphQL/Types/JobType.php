@@ -6,11 +6,11 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class UserType extends GraphQLType
+class JobType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'User',
-        'description' => 'A type of user',
+        'name' => 'Job',
+        'description' => 'A type of Job',
     ];
 
     public function fields(): array
@@ -19,31 +19,46 @@ class UserType extends GraphQLType
             'id' => [
                 'type' => Type::nonNull(Type::int()),
             ],
-            'name' => [
+            'title' => [
                 'type' => Type::nonNull(Type::string()),
             ],
-            'email' => [
-                'type' => Type::nonNull(Type::string()),
-            ],
-            'gender' => [
+            'type' => [
                 'type' => Type::nonNull(Type::int()),
             ],
-            'total_rating' => [
+            'number_of_workers' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'description' => [
+                'type' => Type::nonNull(Type::string()),
+            ],
+            'monthly_salary' => [
                 'type' => Type::nonNull(Type::int()),
             ],
             'hourly_salary' => [
                 'type' => Type::nonNull(Type::int()),
             ],
-            'description' => [
-                'type' => Type::string(),
-            ],
-            'birth_date' => [
+            'requirements' => [
                 'type' => Type::nonNull(Type::string()),
             ],
-            'phone' => [
+            'benefits' => [
                 'type' => Type::nonNull(Type::string()),
             ],
             'street_name' => [
+                'type' => Type::nonNull(Type::string()),
+            ],
+            'start_time' => [
+                'type' => Type::nonNull(Type::string()),
+            ],
+            'end_time' => [
+                'type' => Type::nonNull(Type::string()),
+            ],
+            'created_by' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'created_at' => [
+                'type' => Type::nonNull(Type::string()),
+            ],
+            'updated_at' => [
                 'type' => Type::nonNull(Type::string()),
             ],
             'ward' => [
@@ -55,15 +70,12 @@ class UserType extends GraphQLType
             'province' => [
                 'type' => GraphQL::type('Province'),
             ],
-            'created_at' => [
-                'type' => Type::nonNull(Type::string()),
+            'company' => [
+                'type' => GraphQL::type('Company'),
             ],
-            'updated_at' => [
-                'type' => Type::nonNull(Type::string()),
+            'degreeRequired' => [
+                'type' => GraphQL::type('DegreeCertificate'),
             ],
-            'job_saved' => [
-                'type' => Type::listOf(GraphQL::type('Job')),
-            ]
         ];
     }
 }

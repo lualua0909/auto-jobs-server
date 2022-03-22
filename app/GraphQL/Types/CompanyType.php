@@ -6,11 +6,11 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class UserType extends GraphQLType
+class CompanyType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'User',
-        'description' => 'A type of user',
+        'name' => 'Company',
+        'description' => 'A type of Company',
     ];
 
     public function fields(): array
@@ -22,28 +22,34 @@ class UserType extends GraphQLType
             'name' => [
                 'type' => Type::nonNull(Type::string()),
             ],
-            'email' => [
+            'phone' => [
                 'type' => Type::nonNull(Type::string()),
             ],
-            'gender' => [
+            'company_type_id' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'company_size' => [
                 'type' => Type::nonNull(Type::int()),
             ],
             'total_rating' => [
                 'type' => Type::nonNull(Type::int()),
             ],
-            'hourly_salary' => [
-                'type' => Type::nonNull(Type::int()),
+            'street_name' => [
+                'type' => Type::nonNull(Type::string()),
             ],
             'description' => [
-                'type' => Type::string(),
-            ],
-            'birth_date' => [
                 'type' => Type::nonNull(Type::string()),
             ],
-            'phone' => [
+            'representative_id' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'created_by' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'created_at' => [
                 'type' => Type::nonNull(Type::string()),
             ],
-            'street_name' => [
+            'updated_at' => [
                 'type' => Type::nonNull(Type::string()),
             ],
             'ward' => [
@@ -55,15 +61,12 @@ class UserType extends GraphQLType
             'province' => [
                 'type' => GraphQL::type('Province'),
             ],
-            'created_at' => [
-                'type' => Type::nonNull(Type::string()),
+            'companyType' => [
+                'type' => GraphQL::type('CompanyType'),
             ],
-            'updated_at' => [
-                'type' => Type::nonNull(Type::string()),
-            ],
-            'job_saved' => [
+            'jobs' => [
                 'type' => Type::listOf(GraphQL::type('Job')),
-            ]
+            ],
         ];
     }
 }

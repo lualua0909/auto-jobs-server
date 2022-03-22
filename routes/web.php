@@ -1,16 +1,24 @@
 <?php
 
+use App\Http\Controllers\AuthenticateController;
+use App\Models\User;
+use App\Models\Company;
+use App\Models\CompanyType;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/scheduler', function() {
-    Artisan::call('schedule:run');
+Route::post('graphql/login', [AuthenticateController::class, 'authenticate']);
+
+Route::get('test-1', function () {
+    $user = User::with('job_saved')->first();
+    return $user;
 });
 
-Route::get('/access-file', function() {
-        $fullpath="app/public/345.png";
-        return response()->download(storage_path($fullpath), null, [], null);
+Route::get('test-role', function () {
+    $role = Role::create(['name' => 'user']);
+    return 111;
 });

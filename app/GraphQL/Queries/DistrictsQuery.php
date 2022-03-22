@@ -2,40 +2,39 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\User;
+use App\Models\District;
 use Closure;
 use GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 
-class UsersQuery extends Query
+class DistrictsQuery extends Query
 {
     protected $attributes = [
-        'name' => 'users',
+        'name' => 'districts',
     ];
 
     public function type(): Type
     {
-        return GraphQL::paginate('User');
+        return Type::listOf(GraphQL::type('District'));
     }
 
     public function args(): array
     {
         return [
-            'limit' => [
+            'province_id' => [
+                'name' => 'province_id',
                 'type' => Type::int(),
-                'default' => 4,
+                'rules' => ['required'],
             ],
-            'page' => [
-                'type' => Type::int(),
-                'default' => 1,
-            ]
         ];
     }
 
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
-        return User::paginate($args['limit'], ['*'], 'page', $args['page']);
+        $province_id = $args['province_id'] ?? null;
+
+        return $province_id ? District::where('province_id', $province_id)->get() : District::all();
     }
 }
