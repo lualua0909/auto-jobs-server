@@ -31,7 +31,7 @@ class ContractQuery extends Query
 
     public function resolve($root, $args)
     {
-        $contract = Contract::findOrFail($args['id']);
+        $contract = Contract::findOrFail($args['id'] ?? auth()->id());
         return $contract->user_id === auth()->id() ? $contract : null;
     }
 }

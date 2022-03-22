@@ -28,8 +28,8 @@ class ContractType extends GraphQLType
             'job' => [
                 'type' => GraphQL::type('Job'),
             ],
-            'contract_status' => [
-                'type' => GraphQL::type('ContractStatus'),
+            'status' => [
+                'type' => Type::string(),
             ],
             'finished_at' => [
                 'type' => Type::string(),

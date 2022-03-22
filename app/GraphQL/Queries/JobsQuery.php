@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Job;
+use App\Models\Contract;
 use Closure;
 use GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -53,6 +54,20 @@ class JobsQuery extends Query
         if (isset($args['except_by_id']) && is_array($args['except_by_id'])) {
             $query = $query->whereNotIn('id', $args['except_by_id']);
         }
-        return $query->paginate($args['limit'], ['*'], 'page', $args['page']);
+        $query = $query->paginate($args['limit'], ['*'], 'page', $args['page']);
+
+        /** @var SelectFields $fields */
+        $select = $getSelectFields()->getSelect();
+
+        if(in_array('status', $select)) {
+            foreach ($query as $row) {
+                $row->status = Contract::where([
+                    'job_id' => $row->id,
+                    'user_id' => auth()->id(),
+                ])->first()->status ?? 'not_applied';
+            }
+        }
+        
+        return $query;
     }
 }

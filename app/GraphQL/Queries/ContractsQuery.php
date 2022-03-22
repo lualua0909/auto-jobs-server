@@ -34,7 +34,7 @@ class ContractsQuery extends Query
             'condition' => [
                 'type' => Type::string(),
                 'default' => null,
-            ],
+            ]
         ];
     }
 
@@ -46,7 +46,6 @@ class ContractsQuery extends Query
 
             $query->where($condition[0], $condition[1], $condition[2]);
         }
-
         return $query->orderBy('created_at', 'desc')
             ->paginate($args['limit'], ['*'], 'page', $args['page']);
     }
