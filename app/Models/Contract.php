@@ -38,4 +38,9 @@ class Contract extends Model
     {
         return $this->belongsTo(User::class, 'employer_id', 'id');
     }
+
+    public function contract_status()
+    {
+        return $this->belongsTo(ContractStatus::class, 'status', 'id');
+    }    
 }

@@ -42,33 +42,44 @@ class UpdateContractMutation extends Mutation
 
     public function resolve($root, $args)
     {
-        if ($args['action'] == 'waiting') {
-            $contract = Contract::create([
-                'job_id' => $args['job_id'],
-                'user_id' => auth()->id(),
-                'status' => 'waiting',
-            ]);
-
-            return $contract;
-        } else {
             if (auth()->user()->role === 'user') {
                 $contract = Contract::where([
-                    'job_id', $args['job_id'],
-                    'user_id', auth()->id(),
-                    'employer_id', $args['employer_id'],
+                    'job_id'=> $args['job_id'],
+                    'user_id'=> auth()->id(),
+                    'employer_id'=> $args['employer_id'],
                 ])->first();
 
+                // user được accept những contract [approved]
+                if ($args['action'] === 'approved' && $contract->status === 2) {
+                    $contract->status = 4;
+                }
+                else if ($args['action'] === 'rejected') {
+                    $contract->status = 5;
+                }
             } else if (auth()->user()->role === 'employer') {
                 $contract = Contract::where([
-                    'job_id', $args['job_id'],
-                    'employer_id', auth()->id(),
-                    'user_id', $args['user_id'],
+                    'job_id'=> $args['job_id'],
+                    'employer_id'=> auth()->id(),
+                    'user_id'=> $args['user_id'],
                 ])->first();
+
+                // employer được accept những contract [waiting, accepted, doing]
+                if ($args['action'] === 'approved') {
+                    if($contract->status === 1) {
+                        $contract->status = 2;
+                    } else if($contract->status === 4) {
+                        $contract->status = 6;
+                    } else if($contract->status === 6) {
+                        $contract->status = 7;
+                    }
+                }
+                else if ($args['action'] === 'rejected') {
+                    $contract->status = 3;
+                }
             }
 
-            return $contract->save();
-        }
+            $contract->save();
 
-        return null;
+            return $contract ?? null;
     }
 }

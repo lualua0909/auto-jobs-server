@@ -17,7 +17,7 @@ class ContractType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
             ],
             'user' => [
                 'type' => GraphQL::type('User'),
@@ -28,8 +28,8 @@ class ContractType extends GraphQLType
             'job' => [
                 'type' => GraphQL::type('Job'),
             ],
-            'status' => [
-                'type' => Type::nonNull(Type::string()),
+            'contract_status' => [
+                'type' => GraphQL::type('ContractStatus'),
             ],
             'finished_at' => [
                 'type' => Type::string(),
