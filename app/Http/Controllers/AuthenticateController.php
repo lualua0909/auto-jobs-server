@@ -37,9 +37,12 @@ class AuthenticateController extends Controller
         }
 
         // all good so return the token
+        $address = $this->jwt->user()->with(['ward:id,name', 'district:id,name', 'province:id,name'])->first();
+        $user = $this->jwt->user()->only('id', 'name', 'total_rating', 'email', 'phone', 'role');
+        $user["address"] = "{$address->street_name}, {$address->ward->name}, {$address->district->name}, {$address->province->name}";
         return response()->json([
             'token' => $token,
-            'user_info' => $this->jwt->user()->only('id', 'name', 'total_rating', 'email', 'phone', 'role'),
+            'user_info' => $user,
             'token_type' => 'bearer',
             'expires_in' => $this->jwt->factory()->getTTL() * 60,
         ]);

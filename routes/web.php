@@ -14,7 +14,7 @@ Route::get('/', function () {
 Route::post('graphql/login', [AuthenticateController::class, 'authenticate']);
 
 Route::get('test-1', function () {
-    $user = User::with('job_saved')->first();
+    $user = User::with(['ward:id,name', 'district:id,name', 'province:id,name'])->first();
     return $user;
 });
 
