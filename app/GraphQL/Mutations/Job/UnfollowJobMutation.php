@@ -32,10 +32,9 @@ class UnfollowJobMutation extends Mutation
 
     public function resolve($root, $args)
     {
-        $category = JobSaved::findOrFail([
+        return JobSaved::where([
             'job_id' => $args['job_id'],
             'user_id' => auth()->id(),
-        ]);
-        return $category->delete();
+        ])->delete();
     }
 }
