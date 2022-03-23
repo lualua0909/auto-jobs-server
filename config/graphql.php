@@ -36,6 +36,7 @@ return [
                 'districts' => App\GraphQL\Queries\DistrictsQuery::class,
                 'provinces' => App\GraphQL\Queries\ProvincesQuery::class,
                 'user' => App\GraphQL\Queries\UserQuery::class,
+                'jobSaved' => App\GraphQL\Queries\JobSavedQuery::class,
             ],
             'mutation' => [
                 'deleteUser' => App\GraphQL\Mutations\User\DeleteUserMutation::class,
@@ -67,6 +68,7 @@ return [
         'ContractStatus' => App\GraphQL\Types\ContractStatusType::class,
         'ContractHistory' => App\GraphQL\Types\ContractHistoryType::class,
         'Contract' => App\GraphQL\Types\ContractType::class,
+        'JobSaved' => App\GraphQL\Types\JobSavedType::class,
     ],
     'lazyload_types' => true,
     'error_formatter' => ['\Rebing\GraphQL\GraphQL', 'formatError'],
