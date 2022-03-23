@@ -82,6 +82,9 @@ class JobType extends GraphQLType
             'status' => [
                 'type' => Type::string(),
             ],
+            'isSaved' => [
+                'type' => Type::boolean(),
+            ],
         ];
 
     }

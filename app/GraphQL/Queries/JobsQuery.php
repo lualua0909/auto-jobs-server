@@ -2,8 +2,9 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Job;
 use App\Models\Contract;
+use App\Models\Job;
+use App\Models\JobSaved;
 use Closure;
 use GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -59,15 +60,20 @@ class JobsQuery extends Query
         /** @var SelectFields $fields */
         $select = $getSelectFields()->getSelect();
 
-        if(in_array('status', $select)) {
+        if (in_array('status', $select)) {
             foreach ($query as $row) {
                 $row->status = Contract::where([
                     'job_id' => $row->id,
                     'user_id' => auth()->id(),
                 ])->first()->status ?? 'not_applied';
+
+                $row->isSaved = JobSaved::where([
+                    'job_id' => $row->id,
+                    'user_id' => auth()->id(),
+                ])->first() ? true : false;
             }
         }
-        
+
         return $query;
     }
 }

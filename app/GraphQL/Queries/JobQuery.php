@@ -2,8 +2,9 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Job;
 use App\Models\Contract;
+use App\Models\Job;
+use App\Models\JobSaved;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
@@ -18,7 +19,7 @@ class JobQuery extends Query
     {
         return GraphQL::type('Job');
     }
-    
+
     public function args(): array
     {
         return [
@@ -37,6 +38,12 @@ class JobQuery extends Query
             'job_id' => $job->id,
             'user_id' => auth()->id(),
         ])->first()->status ?? 'not_applied';
+
+        $job->isSaved = JobSaved::where([
+            'job_id' => $job->id,
+            'user_id' => auth()->id(),
+        ])->first() ? true : false;
+
         return $job;
     }
 }
