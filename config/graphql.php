@@ -50,6 +50,8 @@ return [
                 'createNotify' => App\GraphQL\Mutations\Notify\CreateNotifyMutation::class,
                 'updateNotify' => App\GraphQL\Mutations\Notify\UpdateNotifyMutation::class,
                 'deleteNotify' => App\GraphQL\Mutations\Notify\DeleteNotifyMutation::class,
+                'followJob' => App\GraphQL\Mutations\Job\FollowJobMutation::class,
+                'unfollowJob' => App\GraphQL\Mutations\Job\UnfollowJobMutation::class,
             ],
             'middleware' => ['auth:api'],
         ],
