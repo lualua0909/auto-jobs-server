@@ -13,3 +13,7 @@ Route::middleware('auth:api')->group(function () {
 Route::get('/cmnd_front/{user_id}', function ($user_id) {
     return Image::make(storage_path("app/users/$user_id/cmnd_front.webp"))->response();
 });
+
+Route::get('/cmnd_back/{user_id}', function ($user_id) {
+    return Image::make(storage_path("app/users/$user_id/cmnd_back.webp"))->response();
+});
