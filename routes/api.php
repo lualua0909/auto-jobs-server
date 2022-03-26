@@ -11,6 +11,6 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::get('/cmnd_front/{user_id}', function ($user_id) {
-    // dd(storage_path("app\users\\$user_id\avatar.webp"));
+    dd(storage_path("app\users\\$user_id\cmnd_front.webp"));
     return Image::make(storage_path("app\users\\$user_id\cmnd_front.webp"))->response();
 });
