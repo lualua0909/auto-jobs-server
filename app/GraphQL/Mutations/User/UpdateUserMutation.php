@@ -26,8 +26,7 @@ class UpdateUserMutation extends Mutation
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
-                'rules' => ['required'],
+                'type' => Type::int(),
             ],
             'name' => [
                 'type' => Type::string(),
@@ -71,7 +70,7 @@ class UpdateUserMutation extends Mutation
 
     public function resolve($root, $args)
     {
-        $user = User::findOrFail($args['id']);
+        $user = User::findOrFail(isset($args['id']) ? $args['id'] : auth()->id());
         if (isset($args['password'])) {
             $args['password'] = $args['password'] ? bcrypt($args['password']) : $user->password;
         }
