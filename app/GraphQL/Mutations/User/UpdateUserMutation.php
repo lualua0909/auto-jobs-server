@@ -8,6 +8,7 @@ use App\Models\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateUserMutation extends Mutation
 {
@@ -29,32 +30,41 @@ class UpdateUserMutation extends Mutation
                 'rules' => ['required'],
             ],
             'name' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
             ],
             'email' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'rules' => ['email', 'unique:users', 'min:3', 'max:255'],
             ],
             'phone' => [
-                'type' => Type::nonNull(Type::string()),
-                'rules' => ['required', 'unique:users', 'min:6', 'max:20'],
+                'type' => Type::string(),
+                'rules' => ['unique:users', 'min:6', 'max:20'],
             ],
             'street_name' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'rules' => ['min:6'],
             ],
             'ward_id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
             ],
             'district_id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
             ],
             'province_id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
             ],
             'password' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'rules' => ['min:6'],
+            ],
+            'avatar' => [
+                'type' => Type::string(),
+            ],
+            'cmnd_front' => [
+                'type' => Type::string(),
+            ],
+            'cmnd_back' => [
+                'type' => Type::string(),
             ],
         ];
     }
@@ -62,10 +72,21 @@ class UpdateUserMutation extends Mutation
     public function resolve($root, $args)
     {
         $user = User::findOrFail($args['id']);
-        $args['password'] = $args['password'] ? bcrypt($args['password']) : $user->password;
+        if (isset($args['password'])) {
+            $args['password'] = $args['password'] ? bcrypt($args['password']) : $user->password;
+        }
         $user->fill($args);
         $user->save();
 
+        if (isset($args['avatar'])) {
+            Storage::disk('avatar')->put("{$args['id']}/avatar.webp", resize_image($args['avatar']));
+        }
+        if (isset($args['cmnd_front'])) {
+            Storage::disk('users')->put("{$args['id']}/cmnd_front.webp", resize_image($args['cmnd_front'], 1000));
+        }
+        if (isset($args['cmnd_back'])) {
+            Storage::disk('users')->put("{$args['id']}/cmnd_back.webp", resize_image($args['cmnd_back'], 1000));
+        }
         return $user;
     }
 }
