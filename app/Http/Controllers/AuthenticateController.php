@@ -36,9 +36,8 @@ class AuthenticateController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        // all good so return the token
         $address = $this->jwt->user()->with(['ward:id,name', 'district:id,name', 'province:id,name'])->first();
-        $user = $this->jwt->user()->only('id', 'name', 'total_rating', 'email', 'phone', 'role');
+        $user = $this->jwt->user()->only('id', 'name', 'total_rating', 'email', 'phone', 'role', 'birth_date');
         $user["address"] = [
             "street_name" => $address->street_name,
             "ward" => $address->ward,
