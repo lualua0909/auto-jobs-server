@@ -67,9 +67,9 @@ class UpdateContractMutation extends Mutation
                 if ($contract->status === 'waiting') {
                     $contract->status = 'approved';
                 } else if ($contract->status === 'accepted') {
-                    $contract->status = 'done';
-                } else if ($contract->status === 'done') {
                     $contract->status = 'doing';
+                } else if ($contract->status === 'doing') {
+                    $contract->status = 'done';
                 }
             } else if ($args['action'] === 'rejected') {
                 $contract->status = 'rejected';
