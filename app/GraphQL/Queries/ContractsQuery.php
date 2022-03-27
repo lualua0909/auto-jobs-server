@@ -40,7 +40,11 @@ class ContractsQuery extends Query
 
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
-        $query = Contract::where('user_id', auth()->id());
+        if(auth()->user()->role === 'user') {
+            $query = Contract::where('user_id', auth()->id());
+        } else if(auth()->user()->role === 'employer') {
+            $query = Contract::where('employer_id', auth()->id());
+        }
         if (isset($args['condition'])) {
             $condition = explode(",", $args['condition']);
 
