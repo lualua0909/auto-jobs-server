@@ -40,7 +40,7 @@ class UpdateUserMutation extends Mutation
                 'rules' => ['unique:users', 'min:6', 'max:20'],
             ],
             'birth_date' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
             ],
             'street_name' => [
                 'type' => Type::string(),
