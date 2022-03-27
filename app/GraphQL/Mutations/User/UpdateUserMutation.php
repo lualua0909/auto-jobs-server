@@ -79,8 +79,8 @@ class UpdateUserMutation extends Mutation
     {
         $id = isset($args['id']) ? $args['id'] : auth()->id();
         $user = User::findOrFail($id);
-        if (isset($args['old_password']) && isset($args['password']) && Hash::check($args['old_password'], $user->password)) {
-            $args['password'] = bcrypt($args['password']);
+        if (isset($args['old_password']) && isset($args['password'])) {
+            $args['password'] = Hash::check($args['old_password'], $user->password) ? bcrypt($args['password']) : $user->password;
         }
         $user->fill($args);
         $user->save();
