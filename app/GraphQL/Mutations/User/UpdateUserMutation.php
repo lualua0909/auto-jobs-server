@@ -9,6 +9,7 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Support\Facades\Storage;
 use Rebing\GraphQL\Support\Mutation;
+use Hash;
 
 class UpdateUserMutation extends Mutation
 {
