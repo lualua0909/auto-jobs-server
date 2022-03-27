@@ -7,8 +7,8 @@ namespace App\GraphQL\Mutations\User;
 use App\Models\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Mutation;
 use Illuminate\Support\Facades\Storage;
+use Rebing\GraphQL\Support\Mutation;
 
 class UpdateUserMutation extends Mutation
 {
@@ -55,6 +55,10 @@ class UpdateUserMutation extends Mutation
             'province_id' => [
                 'type' => Type::int(),
             ],
+            'old_password' => [
+                'type' => Type::string(),
+                'rules' => ['min:6'],
+            ],
             'password' => [
                 'type' => Type::string(),
                 'rules' => ['min:6'],
@@ -75,8 +79,8 @@ class UpdateUserMutation extends Mutation
     {
         $id = isset($args['id']) ? $args['id'] : auth()->id();
         $user = User::findOrFail($id);
-        if (isset($args['password'])) {
-            $args['password'] = $args['password'] ? bcrypt($args['password']) : $user->password;
+        if (isset($args['old_password']) && isset($args['password']) && Hash::check($args['old_password'], $user->password)) {
+            $args['password'] = bcrypt($args['password']);
         }
         $user->fill($args);
         $user->save();
@@ -84,12 +88,15 @@ class UpdateUserMutation extends Mutation
         if (isset($args['avatar'])) {
             Storage::disk('avatar')->put("$id/avatar.webp", resize_image($args['avatar']));
         }
+
         if (isset($args['cmnd_front'])) {
             Storage::disk('users')->put("$id/cmnd_front.webp", resize_image($args['cmnd_front'], 1000));
         }
+
         if (isset($args['cmnd_back'])) {
             Storage::disk('users')->put("$id/cmnd_back.webp", resize_image($args['cmnd_back'], 1000));
         }
+
         return $user;
     }
 }
