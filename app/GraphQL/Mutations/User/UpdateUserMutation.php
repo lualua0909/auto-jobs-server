@@ -7,9 +7,9 @@ namespace App\GraphQL\Mutations\User;
 use App\Models\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
+use Hash;
 use Illuminate\Support\Facades\Storage;
 use Rebing\GraphQL\Support\Mutation;
-use Hash;
 
 class UpdateUserMutation extends Mutation
 {
@@ -81,7 +81,11 @@ class UpdateUserMutation extends Mutation
         $id = isset($args['id']) ? $args['id'] : auth()->id();
         $user = User::findOrFail($id);
         if (isset($args['old_password']) && isset($args['password'])) {
-            $args['password'] = Hash::check($args['old_password'], $user->password) ? bcrypt($args['password']) : $user->password;
+            if (Hash::check($args['old_password'], $user->password)) {
+                $args['password'] = bcrypt($args['password']);
+            } else {
+                return null;
+            }
         }
         $user->fill($args);
         $user->save();
