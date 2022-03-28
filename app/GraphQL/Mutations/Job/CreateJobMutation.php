@@ -75,25 +75,9 @@ class CreateJobMutation extends Mutation
 
     public function resolve($root, $args)
     {
-            $job = Job::create(
-                [
-                    'title' => $args['title'],
-                    'description' => $args['description'],
-                    'hourly_salary' => $args['hourly_salary'],
-                    'requirements' => $args['requirements'],
-                    'benefits' => $args['benefits'],
-                    'number_of_workers' => $args['number_of_workers'],
-                    'street_name' => $args['street_name'],
-                    'ward_id' => $args['ward_id'],
-                    'district_id' => $args['district_id'],
-                    'province_id' => $args['province_id'],
-                    'start_time' => $args['start_time'],
-                    'end_time' => $args['end_time'],
-                    'lat' => $args['lat'],
-                    'long' => $args['long'],
-                    'created_by' => auth()->id()
-                ]
-            );
-            return $job ?? null;
+        $params = array_merge($args, ['created_by' => auth()->id()]);
+        $job = Job::fill($params);
+        $job->save();
+        return $job ?? null;
     }
 }

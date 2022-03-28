@@ -28,6 +28,8 @@ class Job extends Model
         'start_time',
         'end_time',
         'created_by',
+        'lat',
+        'long',
     ];
 
     public function company()

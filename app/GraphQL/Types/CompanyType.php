@@ -67,6 +67,12 @@ class CompanyType extends GraphQLType
             'jobs' => [
                 'type' => Type::listOf(GraphQL::type('Job')),
             ],
+            'lat' => [
+                'type' => Type::nonNull(Type::float()),
+            ],
+            'long' => [
+                'type' => Type::nonNull(Type::float()),
+            ],
         ];
     }
 }
