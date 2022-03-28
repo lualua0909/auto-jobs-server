@@ -76,7 +76,8 @@ class CreateJobMutation extends Mutation
     public function resolve($root, $args)
     {
         $params = array_merge($args, ['created_by' => auth()->id()]);
-        $job = Job::fill($params);
+        $job = new Job;
+        $job->fill($params);
         $job->save();
         return $job ?? null;
     }
