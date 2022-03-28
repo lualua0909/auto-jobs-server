@@ -22,7 +22,6 @@ class UserQuery extends Query
     {
         return [
             'id' => [
-                'name' => 'id',
                 'type' => Type::int(),
             ],
         ];

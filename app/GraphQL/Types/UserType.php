@@ -43,6 +43,9 @@ class UserType extends GraphQLType
             'phone' => [
                 'type' => Type::nonNull(Type::string()),
             ],
+            'role' => [
+                'type' => Type::string(),
+            ],
             'street_name' => [
                 'type' => Type::string(),
             ],
