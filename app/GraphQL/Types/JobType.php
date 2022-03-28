@@ -85,6 +85,12 @@ class JobType extends GraphQLType
             'isSaved' => [
                 'type' => Type::nonNull(Type::boolean()),
             ],
+            'lat' => [
+                'type' => Type::nonNull(Type::float()),
+            ],
+            'long' => [
+                'type' => Type::nonNull(Type::float()),
+            ],
         ];
 
     }
