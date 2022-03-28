@@ -24,14 +24,13 @@ class UserQuery extends Query
             'id' => [
                 'name' => 'id',
                 'type' => Type::int(),
-                'rules' => ['required'],
             ],
         ];
     }
 
     public function resolve($root, $args)
     {
-        $user = User::findOrFail($args['id']);
+        $user = User::findOrFail($args['id'] ?? auth()->id());
         return $user;
     }
 }
