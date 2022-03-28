@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Mutations\Job;
 
-use App\Models\Job;
 use App\Models\Company;
+use App\Models\Job;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
@@ -77,10 +77,14 @@ class CreateJobMutation extends Mutation
     public function resolve($root, $args)
     {
         $company = Company::where('representative_id', auth()->id())->first();
-        $params = array_merge($args, ['created_by' => auth()->id(), 'company_id' => $company->id]);
-        $job = new Job;
-        $job->fill($params);
-        $job->save();
+        if ($company) {
+            $params = array_merge($args, ['created_by' => auth()->id(), 'company_id' => $company->id]);
+            $job = new Job;
+            $job->fill($params);
+            $job->save();
+        } else {
+            return null;
+        }
         return $job ?? null;
     }
 }
