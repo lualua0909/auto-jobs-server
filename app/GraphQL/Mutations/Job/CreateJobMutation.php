@@ -58,6 +58,18 @@ class CreateJobMutation extends Mutation
             'province_id' => [
                 'type' => Type::nonNull(Type::int()),
             ],
+            'start_time' => [
+                'type' => Type::string(),
+            ],
+            'end_time' => [
+                'type' => Type::string(),
+            ],
+            'lat' => [
+                'type' => Type::float(),
+            ],
+            'long' => [
+                'type' => Type::float(),
+            ],
         ];
     }
 
@@ -75,6 +87,10 @@ class CreateJobMutation extends Mutation
                     'ward_id' => $args['ward_id'],
                     'district_id' => $args['district_id'],
                     'province_id' => $args['province_id'],
+                    'start_time' => $args['start_time'],
+                    'end_time' => $args['end_time'],
+                    'lat' => $args['lat'],
+                    'long' => $args['long'],
                     'created_by' => auth()->id()
                 ]
             );
