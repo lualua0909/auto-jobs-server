@@ -81,7 +81,7 @@ class UpdateUserMutation extends Mutation
         $id = isset($args['id']) ? $args['id'] : auth()->id();
         $user = User::findOrFail($id);
 
-        if (isset($args['email']) && $args['email'] === $user->email) {
+        if (isset($args['email']) && $args['email'] !== $user->email) {
             if (User::where('email', '=', $args['email'])->count() > 0) {
                 return null;
             }
