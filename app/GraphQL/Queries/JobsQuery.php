@@ -46,6 +46,9 @@ class JobsQuery extends Query
                 'type' => Type::listOf(Type::int()),
                 'default' => null,
             ],
+            'condition' => [
+                'type' => Type::string(),
+            ],
         ];
     }
 
@@ -55,6 +58,24 @@ class JobsQuery extends Query
         if (isset($args['except_by_id']) && is_array($args['except_by_id'])) {
             $query = $query->whereNotIn('id', $args['except_by_id']);
         }
+
+        if (auth()->user()->role === 'employer') {
+            $query = $query->where('created_by', auth()->id());
+        }
+
+        if (isset($args['condition'])) {
+            $now = date('Y-m-d H:i:s');
+
+            if ($args['condition'] === 'doing') {
+                $query = $query->where([
+                    ['start_time', '<=', $now],
+                    ['end_time', '>=', $now],
+                ]);
+            } else if ($args['condition'] === 'done') {
+                $query = $query->where('end_time', '<', $now);
+            }
+        }
+
         $query = $query->paginate($args['limit'], ['*'], 'page', $args['page']);
 
         /** @var SelectFields $fields */
