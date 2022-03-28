@@ -5,6 +5,7 @@ namespace App\GraphQL\Queries;
 use App\Models\Contract;
 use App\Models\Job;
 use App\Models\JobSaved;
+use App\Models\User;
 use Closure;
 use GraphQL;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -49,20 +50,27 @@ class JobsQuery extends Query
             'condition' => [
                 'type' => Type::string(),
             ],
+            'near_by' => [
+                'type' => Type::int(),
+            ],
         ];
     }
 
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
         $query = new Job;
+
+        // Loại bỏ những job_id không muốn hiển thị
         if (isset($args['except_by_id']) && is_array($args['except_by_id'])) {
             $query = $query->whereNotIn('id', $args['except_by_id']);
         }
 
+        // Nếu là người tuyển dụng thì chỉ hiển thị công việc của mình
         if (auth()->user()->role === 'employer') {
             $query = $query->where('created_by', auth()->id());
         }
 
+        // Lất công việc theo trạng thái đã hoàn thành hay chưa
         if (isset($args['condition'])) {
             $now = date('Y-m-d H:i:s');
 
@@ -76,18 +84,26 @@ class JobsQuery extends Query
             }
         }
 
+        // Kiểm tra điều kiện near_by để lấy ra các công việc gần nhất
+        if (isset($args['near_by'])) {
+            $user = User::find(auth()->id());
+            $query = $query->where('province_id', $user->province_id);
+        }
+
         $query = $query->paginate($args['limit'], ['*'], 'page', $args['page']);
 
         /** @var SelectFields $fields */
         $select = $getSelectFields()->getSelect();
 
-        if (in_array('status', $select)) {
+        if (in_array('status', $select) && auth()->user()->role === 'user') {
             foreach ($query as $row) {
+                // Lấy ra trạng thái công việc đối với người dùng hiện tại
                 $row->status = Contract::where([
                     'job_id' => $row->id,
                     'user_id' => auth()->id(),
                 ])->first()->status ?? 'not_applied';
 
+                // Kiểm tra xem công việc đã được lưu hay chưa
                 $row->isSaved = JobSaved::where([
                     'job_id' => $row->id,
                     'user_id' => auth()->id(),
