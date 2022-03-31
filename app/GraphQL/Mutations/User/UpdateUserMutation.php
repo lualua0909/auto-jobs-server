@@ -98,7 +98,7 @@ class UpdateUserMutation extends Mutation
         $user->save();
 
         if (isset($args['avatar'])) {
-            Storage::disk('avatar')->put("$id/avatar.webp", resize_image($args['avatar']));
+            Storage::disk('avatar')->put("$id/avatar.webp", resize_image($args['avatar'], 600));
         }
 
         if (isset($args['cmnd_front'])) {
