@@ -8,6 +8,7 @@
  */
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\JWTAuth;
@@ -36,7 +37,7 @@ class AuthenticateController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        $address = $this->jwt->user()->with(['ward:id,name', 'district:id,name', 'province:id,name'])->first();
+        $address = User::where('id', $this->jwt->user()->id)->with(['ward:id,name', 'district:id,name', 'province:id,name'])->first();
         $user = $this->jwt->user()->only('id', 'name', 'total_rating', 'email', 'phone', 'role', 'birth_date');
         $user["address"] = [
             "street_name" => $address->street_name,
