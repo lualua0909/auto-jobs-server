@@ -18,15 +18,6 @@ class JobsQuery extends Query
         'name' => 'Jobs',
     ];
 
-    public function authorize($root, array $args, $ctx, ResolveInfo $resolveInfo = null, Closure $getSelectFields = null): bool
-    {
-        if (isset($args['id'])) {
-            return auth()->id() == $args['id'];
-        }
-
-        return true;
-    }
-
     public function type(): Type
     {
         return GraphQL::paginate('Job');

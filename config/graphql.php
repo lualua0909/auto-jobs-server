@@ -14,6 +14,7 @@ return [
                 'wards' => App\GraphQL\Queries\WardsQuery::class,
                 'districts' => App\GraphQL\Queries\DistrictsQuery::class,
                 'provinces' => App\GraphQL\Queries\ProvincesQuery::class,
+                'jobs' => App\GraphQL\Queries\JobsQuery::class,
             ],
             'mutation' => [
                 'createUser' => App\GraphQL\Mutations\User\CreateUserMutation::class,
