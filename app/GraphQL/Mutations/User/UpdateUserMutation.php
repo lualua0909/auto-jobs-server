@@ -73,6 +73,18 @@ class UpdateUserMutation extends Mutation
             'cmnd_back' => [
                 'type' => Type::string(),
             ],
+            'lat' => [
+                'type' => Type::float(),
+            ],
+            'long' => [
+                'type' => Type::float(),
+            ],
+            'lat_delta' => [
+                'type' => Type::float(),
+            ],
+            'long_delta' => [
+                'type' => Type::float(),
+            ],
         ];
     }
 

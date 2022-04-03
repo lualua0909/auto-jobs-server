@@ -64,6 +64,18 @@ class CreateUserMutation extends Mutation
                 'type' => Type::nonNull(Type::string()),
                 'rules' => ['required', 'min:6'],
             ],
+            'lat' => [
+                'type' => Type::float(),
+            ],
+            'long' => [
+                'type' => Type::float(),
+            ],
+            'lat_delta' => [
+                'type' => Type::float(),
+            ],
+            'long_delta' => [
+                'type' => Type::float(),
+            ],
         ];
     }
 
@@ -73,7 +85,7 @@ class CreateUserMutation extends Mutation
             \DB::beginTransaction();
             $args['password'] = bcrypt($args['password']);
             $user = User::create(collect($args)->only(['name', 'email', 'description', 'phone', 'street_name', 'ward_id', 'district_id', 'province_id', 'password'])->toArray());
-            
+
             $user->role = 'user';
             $user->assignRole('user');
 

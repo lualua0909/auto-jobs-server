@@ -29,6 +29,10 @@ class User extends Authenticatable implements JWTSubject
         'ward_id',
         'district_id',
         'province_id',
+        'lat',
+        'long',
+        'lat_delta',
+        'long_delta',
         'created_by'];
 
     protected $hidden = ['password']; // bỏ password ra khỏi response

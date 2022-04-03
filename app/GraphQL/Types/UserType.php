@@ -66,7 +66,19 @@ class UserType extends GraphQLType
             ],
             'job_saved' => [
                 'type' => Type::listOf(GraphQL::type('Job')),
-            ]
+            ],
+            'lat' => [
+                'type' => Type::nonNull(Type::float()),
+            ],
+            'long' => [
+                'type' => Type::nonNull(Type::float()),
+            ],
+            'lat_delta' => [
+                'type' => Type::nonNull(Type::float()),
+            ],
+            'long_delta' => [
+                'type' => Type::nonNull(Type::float()),
+            ],
         ];
     }
 }
