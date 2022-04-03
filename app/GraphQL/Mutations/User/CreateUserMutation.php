@@ -84,7 +84,7 @@ class CreateUserMutation extends Mutation
         try {
             \DB::beginTransaction();
             $args['password'] = bcrypt($args['password']);
-            $user = User::create(collect($args)->only(['name', 'email', 'description', 'phone', 'street_name', 'ward_id', 'district_id', 'province_id', 'password'])->toArray());
+            $user = User::create(collect($args)->only(['name', 'email', 'description', 'phone', 'street_name', 'ward_id', 'district_id', 'province_id', 'password', 'lat', 'long', 'lat_delta', 'long_delta'])->toArray());
 
             $user->role = 'user';
             $user->assignRole('user');
