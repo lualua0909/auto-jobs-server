@@ -12,6 +12,6 @@ if (!function_exists('resize_image')) {
     {
         return Image::make($image)->resize($size, null, function ($constraint) {
             $constraint->aspectRatio();
-        })->encode('webp', 100);
+        })->encode('webp', 90);
     }
 }
