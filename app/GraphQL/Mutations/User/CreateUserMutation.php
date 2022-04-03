@@ -35,6 +35,9 @@ class CreateUserMutation extends Mutation
                 'type' => Type::nonNull(Type::string()),
                 'rules' => ['required', 'unique:users', 'min:6', 'max:20'],
             ],
+            'birth_date' => [
+                'type' => Type::string(),
+            ],
             'street_name' => [
                 'type' => Type::nonNull(Type::string()),
                 'rules' => ['required', 'min:6'],
@@ -84,7 +87,7 @@ class CreateUserMutation extends Mutation
         try {
             \DB::beginTransaction();
             $args['password'] = bcrypt($args['password']);
-            $user = User::create(collect($args)->only(['name', 'email', 'description', 'phone', 'street_name', 'ward_id', 'district_id', 'province_id', 'password', 'lat', 'long', 'lat_delta', 'long_delta'])->toArray());
+            $user = User::create(collect($args)->only(['name', 'email', 'description', 'phone', 'birth_date', 'street_name', 'ward_id', 'district_id', 'province_id', 'password', 'lat', 'long', 'lat_delta', 'long_delta'])->toArray());
 
             $user->role = 'user';
             $user->assignRole('user');
