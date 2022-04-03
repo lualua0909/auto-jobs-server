@@ -102,6 +102,16 @@ class JobsQuery extends Query
             }
         }
 
+        if (in_array('isSaved', $select) && auth()->user()->role === 'user') {
+            foreach ($query as $row) {
+                // Kiểm tra xem công việc đã được lưu hay chưa
+                $row->isSaved = JobSaved::where([
+                    'job_id' => $row->id,
+                    'user_id' => auth()->id(),
+                ])->first() ? true : false;
+            }
+        }
+
         return $query;
     }
 }
