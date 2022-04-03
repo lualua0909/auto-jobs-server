@@ -62,18 +62,18 @@ class JobsQuery extends Query
         }
 
         // Lất công việc theo trạng thái đã hoàn thành hay chưa
-        if (isset($args['condition'])) {
-            $now = date('Y-m-d H:i:s');
+        // if (isset($args['condition'])) {
+        //     $now = date('Y-m-d H:i:s');
 
-            if ($args['condition'] === 'doing') {
-                $query = $query->where([
-                    ['start_time', '<=', $now],
-                    ['end_time', '>=', $now],
-                ]);
-            } else if ($args['condition'] === 'done') {
-                $query = $query->where('end_time', '<', $now);
-            }
-        }
+        //     if ($args['condition'] === 'doing') {
+        //         $query = $query->where([
+        //             ['start_time', '<=', $now],
+        //             ['end_time', '>=', $now],
+        //         ]);
+        //     } else if ($args['condition'] === 'done') {
+        //         $query = $query->where('end_time', '<', $now);
+        //     }
+        // }
 
         // Kiểm tra điều kiện near_by để lấy ra các công việc gần nhất
         if (isset($args['near_by'])) {
