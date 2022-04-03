@@ -22,6 +22,6 @@ class ProvincesQuery extends Query
 
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
-        return Province::all();
+        return Province::orderBy('priority', 'desc')->get();
     }
 }
