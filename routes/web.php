@@ -6,7 +6,6 @@ use App\Models\Company;
 use App\Models\CompanyType;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
-use Carbon\Carbon;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,6 +28,5 @@ Route::get('clear-cache', function () {
     \Artisan::call('route:clear');
     \Artisan::call('config:cache');
 
-    $dt = Carbon::now()->toDateTimeString();
-    echo $dt;
+    echo date('Y-m-d H:i:s');
 });
