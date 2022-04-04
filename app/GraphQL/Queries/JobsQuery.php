@@ -93,12 +93,6 @@ class JobsQuery extends Query
                     'job_id' => $row->id,
                     'user_id' => auth()->id(),
                 ])->first()->status ?? 'not_applied';
-
-                // Kiểm tra xem công việc đã được lưu hay chưa
-                $row->isSaved = JobSaved::where([
-                    'job_id' => $row->id,
-                    'user_id' => auth()->id(),
-                ])->first() ? true : false;
             }
         }
 

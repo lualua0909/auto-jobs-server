@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\CompanyType;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
+use Carbon\Carbon;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,4 +22,13 @@ Route::get('test-1', function () {
 Route::get('test-role', function () {
     $role = Role::create(['name' => 'user']);
     return 111;
+});
+
+Route::get('clear-cache', function () {
+    \Artisan::call('cache:clear');
+    \Artisan::call('route:clear');
+    \Artisan::call('config:cache');
+
+    $dt = Carbon::now()->toDateTimeString();
+    echo $dt;
 });
