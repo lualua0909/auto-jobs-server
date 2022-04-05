@@ -51,7 +51,7 @@ class AuthenticateController extends Controller
             $notification = new Notification;
             $notification->fill([
                 'templated_id' => 3,
-                'user_id' => $user->id,
+                'user_id' => $user["id"],
                 'param_1' => date('Y-m-d H:i:s')
             ]);
             $notification->save();
