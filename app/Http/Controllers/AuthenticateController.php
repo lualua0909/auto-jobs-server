@@ -1,11 +1,4 @@
 <?php
-
-/**
- * Created by PhpStorm.
- * User: ardani
- * Date: 8/4/17
- * Time: 11:18 AM
- */
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -50,7 +43,7 @@ class AuthenticateController extends Controller
         if ($user) {
             $notification = new Notification;
             $notification->fill([
-                'templated_id' => 3,
+                'template_id' => 3,
                 'user_id' => $user["id"],
                 'param_1' => date('Y-m-d H:i:s')
             ]);

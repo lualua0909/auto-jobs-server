@@ -118,7 +118,7 @@ class CreateUserMutation extends Mutation
                 if ($user) {
                     $notification = new Notification;
                     $notification->fill([
-                        'templated_id' => 2,
+                        'template_id' => 2,
                         'user_id' => $user->id,
                     ]);
                     $notification->save();
