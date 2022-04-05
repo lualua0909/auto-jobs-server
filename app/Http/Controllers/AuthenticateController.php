@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\JWTAuth;
+use App\Models\Notification;
 
 class AuthenticateController extends Controller
 {
