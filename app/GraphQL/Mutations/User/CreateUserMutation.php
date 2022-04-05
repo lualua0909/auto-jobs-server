@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\User;
 
 use App\Models\Company;
+use App\Models\Notification;
 use App\Models\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
@@ -113,6 +114,15 @@ class CreateUserMutation extends Mutation
                 $user->removeRole('user');
                 $user->assignRole('employer');
                 $user->save();
+
+                if ($user) {
+                    $notification = new Notification;
+                    $notification->fill([
+                        'templated_id' => 2,
+                        'user_id' => $user->id,
+                    ]);
+                    $notification->save();
+                }
             }
 
             \DB::commit();

@@ -45,6 +45,17 @@ class AuthenticateController extends Controller
             "district" => $res->district,
             "province" => $res->province,
         ];
+
+        if ($user) {
+            $notification = new Notification;
+            $notification->fill([
+                'templated_id' => 3,
+                'user_id' => $user->id,
+                'param_1' => date('Y-m-d H:i:s')
+            ]);
+            $notification->save();
+        }
+
         return response()->json([
             'token' => $token,
             'user_info' => $user,
