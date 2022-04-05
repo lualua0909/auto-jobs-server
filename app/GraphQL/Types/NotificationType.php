@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Types;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
-use GraphQL;
 
 class NotificationType extends GraphQLType
 {
@@ -22,11 +22,11 @@ class NotificationType extends GraphQLType
             'template' => [
                 'type' => GraphQL::type('NotificationTemplate'),
             ],
-            'job' => [
-                'type' => GraphQL::type('Job'),
+            'param_1' => [
+                'type' => Type::string(),
             ],
-            'company' => [
-                'type' => GraphQL::type('Company'),
+            'param_2' => [
+                'type' => Type::string(),
             ],
             'status' => [
                 'type' => Type::int(),

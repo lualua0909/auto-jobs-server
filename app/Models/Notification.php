@@ -14,8 +14,8 @@ class Notification extends Model
 
     protected $fillable = [
         'template_id',
-        'job_id',
-        'company_id',
+        'param_1',
+        'param_2',
         'user_id',
         'status',
         'created_at',
@@ -25,15 +25,5 @@ class Notification extends Model
     public function template()
     {
         return $this->belongsTo(NotificationTemplate::class, "template_id");
-    }
-
-    public function job()
-    {
-        return $this->belongsTo(Job::class, "job_id");
-    }
-
-    public function company()
-    {
-        return $this->belongsTo(Company::class, "company_id");
     }
 }
