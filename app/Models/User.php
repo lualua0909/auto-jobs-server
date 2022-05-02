@@ -33,6 +33,7 @@ class User extends Authenticatable implements JWTSubject
         'long',
         'lat_delta',
         'long_delta',
+        'fcm_token',
         'created_by'];
 
     protected $hidden = ['password']; // bỏ password ra khỏi response

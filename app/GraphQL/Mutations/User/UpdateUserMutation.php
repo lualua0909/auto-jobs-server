@@ -64,6 +64,10 @@ class UpdateUserMutation extends Mutation
                 'type' => Type::string(),
                 'rules' => ['min:6'],
             ],
+            'fcm_token' => [
+                'type' => Type::string(),
+                'rules' => ['min:6'],
+            ],
             'avatar' => [
                 'type' => Type::string(),
             ],

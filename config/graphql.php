@@ -94,7 +94,7 @@ return [
         'controller' => \Rebing\GraphQL\GraphQLController::class . '@graphiql',
         'middleware' => [],
         'view' => 'graphql::graphiql',
-        'display' => env('ENABLE_GRAPHIQL', true),
+        'display' => env('ENABLE_GRAPHIQL', false),
     ],
 
     'defaultFieldResolver' => null,
@@ -102,4 +102,10 @@ return [
     'headers' => [],
 
     'json_encoding_options' => 0,
+
+    'apg' => [
+        'enable' => true
+    ],
+
+    'detect_unused_variables' => true
 ];

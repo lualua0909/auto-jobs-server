@@ -79,6 +79,9 @@ class UserType extends GraphQLType
             'long_delta' => [
                 'type' => Type::float(),
             ],
+            'fcm_token' => [
+                'type' => Type::string(),
+            ],
         ];
     }
 }
