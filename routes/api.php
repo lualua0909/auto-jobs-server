@@ -3,10 +3,20 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Models\User;
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
+    });
+
+    Route::get('/test-fcm', function ($user_id) {
+        $res = User::find($user_id);
+        if($res->fcm_token) {
+            send_fcm($res->fcm_token, 'Đăng nhập thành công test FCM', 'Bạn đã đăng nhập vào hệ thống', 'data');
+        }
+
+        return true;
     });
 });
 

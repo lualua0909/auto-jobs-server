@@ -48,10 +48,6 @@ class AuthenticateController extends Controller
                 'param_1' => date('Y-m-d H:i:s')
             ]);
             $notification->save();
-
-            if($res->fcm_token) {
-                send_fcm($res->fcm_token, 'Đăng nhập thành công', 'Bạn đã đăng nhập vào hệ thống', 'data');
-            }
         }
 
         return response()->json([
