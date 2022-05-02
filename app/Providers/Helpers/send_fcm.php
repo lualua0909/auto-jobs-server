@@ -2,6 +2,7 @@
 use LaravelFCM\Facades\FCM;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
 
 function send_fcm($token, $title, $body, $link)
 {
@@ -16,7 +17,12 @@ function send_fcm($token, $title, $body, $link)
 
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();
-        $downstreamResponse = FCM::sendTo($token, $option, $notification, null);
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData(['a_data' => 'my_data']);
+        $data = $dataBuilder->build();
+
+        $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
         $downstreamResponse->numberSuccess();
         $downstreamResponse->numberFailure();
         $downstreamResponse->numberModification();
