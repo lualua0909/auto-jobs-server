@@ -108,7 +108,10 @@ class UpdateContractMutation extends Mutation
             $notification->save();
 
             if ($user->fcm_token && $template_id) {
+                $job = Job::find($args['job_id']);
+
                 $template = NotificationTemplate::find($template_id);
+                
                 $body = str_replace("{{param_1}}", $job->title, $template->content);
                 $body = str_replace("{{param_2}}", $user->name, $body);
 
