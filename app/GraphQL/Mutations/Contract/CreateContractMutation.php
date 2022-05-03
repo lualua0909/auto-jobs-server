@@ -40,7 +40,7 @@ class CreateContractMutation extends Mutation
         $job = Job::find($args['job_id']);
         $role = auth()->user()->role;
         $template_id = null;
-        
+
         if ($role === 'user') {
             $contract = Contract::firstOrCreate([
                 'job_id' => $args['job_id'],
@@ -68,6 +68,8 @@ class CreateContractMutation extends Mutation
             $notification->fill([
                 'template_id' => $template_id,
                 'user_id' => $user->id,
+                'param_1' => $job->title,
+                'param_2' => $user->name,
             ]);
             $notification->save();
 

@@ -101,17 +101,18 @@ class UpdateContractMutation extends Mutation
 
         $user = User::find($user_id);
         if ($user) {
+            $job = Job::find($args['job_id']);
             //tạo thông báo cho người nhận
             $notification = new Notification;
             $notification->fill([
                 'template_id' => $template_id,
                 'user_id' => $user->id,
+                'param_1' => $job->title,
+                'param_2' => $user->name,
             ]);
             $notification->save();
 
             if ($user->fcm_token) {
-                $job = Job::find($args['job_id']);
-
                 $template = NotificationTemplate::find($template_id);
 
                 $body = str_replace("{{param_1}}", $job->title, $template->content);
