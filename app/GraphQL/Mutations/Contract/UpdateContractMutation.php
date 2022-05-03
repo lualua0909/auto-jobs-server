@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace App\GraphQL\Mutations\Contract;
 
+use App\Models\Job;
 use App\Models\Contract;
 use App\Models\Notification;
 use App\Models\NotificationTemplate;
