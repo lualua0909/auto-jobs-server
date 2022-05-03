@@ -46,7 +46,7 @@ class UpdateContractMutation extends Mutation
     public function resolve($root, $args)
     {
         $template_id = null;
-        
+
         if (auth()->user()->role === 'user') {
             $contract = Contract::where([
                 'job_id' => $args['job_id'],
@@ -100,7 +100,7 @@ class UpdateContractMutation extends Mutation
         $contract->save();
 
         $user = User::find($user_id);
-        if ($user && $template_id) {
+        if ($user) {
             //tạo thông báo cho người nhận
             $notification = new Notification;
             $notification->fill([
