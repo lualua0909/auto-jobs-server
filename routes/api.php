@@ -21,6 +21,7 @@ Route::get('/cmnd_back/{user_id}', function ($user_id) {
 
 Route::get('/test-fcm/{user_id}', function ($user_id) {
     $res = User::find($user_id);
+
     if($res->fcm_token) {
         send_fcm($res->fcm_token, 'Đăng nhập thành công test FCM', 'Bạn đã đăng nhập vào hệ thống', 'data');
     }
