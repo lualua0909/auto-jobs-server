@@ -39,7 +39,8 @@ class CreateContractMutation extends Mutation
     {
         $job = Job::find($args['job_id']);
         $role = auth()->user()->role;
-
+        $template_id = null;
+        
         if ($role === 'user') {
             $contract = Contract::firstOrCreate([
                 'job_id' => $args['job_id'],

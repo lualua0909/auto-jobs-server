@@ -45,6 +45,8 @@ class UpdateContractMutation extends Mutation
 
     public function resolve($root, $args)
     {
+        $template_id = null;
+        
         if (auth()->user()->role === 'user') {
             $contract = Contract::where([
                 'job_id' => $args['job_id'],
