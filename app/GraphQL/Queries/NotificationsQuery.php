@@ -36,6 +36,8 @@ class NotificationsQuery extends Query
 
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
-        return Notification::where('user_id', auth()->id())->paginate($args['limit'], ['*'], 'page', $args['page']);
+        return Notification::where('user_id', auth()->id())
+            ->orderBy('id', 'desc')
+            ->paginate($args['limit'], ['*'], 'page', $args['page']);
     }
 }

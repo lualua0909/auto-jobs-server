@@ -1,7 +1,4 @@
 <?php
-
-declare (strict_types = 1);
-
 namespace App\GraphQL\Mutations\Contract;
 
 use App\Models\Job;
