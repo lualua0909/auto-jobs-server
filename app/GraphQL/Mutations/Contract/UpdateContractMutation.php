@@ -5,9 +5,9 @@ declare (strict_types = 1);
 namespace App\GraphQL\Mutations\Contract;
 
 use App\Models\Contract;
-use App\Models\User;
 use App\Models\Notification;
 use App\Models\NotificationTemplate;
+use App\Models\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
@@ -91,14 +91,14 @@ class UpdateContractMutation extends Mutation
 
                 $template_id = 7; // đơn ứng tuyển bị từ chối
             }
-            
+
             $user_id = $args['user_id']; // id của ứng viên nhận thông báo
         }
 
         $contract->save();
 
         $user = User::find($user_id);
-        if ($user) {
+        if ($user && $template_id) {
             //tạo thông báo cho người nhận
             $notification = new Notification;
             $notification->fill([
@@ -107,11 +107,11 @@ class UpdateContractMutation extends Mutation
             ]);
             $notification->save();
 
-            if ($user->fcm_token && $template_id) {
+            if ($user->fcm_token) {
                 $job = Job::find($args['job_id']);
 
                 $template = NotificationTemplate::find($template_id);
-                
+
                 $body = str_replace("{{param_1}}", $job->title, $template->content);
                 $body = str_replace("{{param_2}}", $user->name, $body);
 

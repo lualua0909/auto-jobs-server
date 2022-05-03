@@ -61,7 +61,7 @@ class CreateContractMutation extends Mutation
         }
 
         $user = User::find($user_id);
-        if ($user) {
+        if ($user && $template_id) {
             //tạo thông báo cho người nhận
             $notification = new Notification;
             $notification->fill([
