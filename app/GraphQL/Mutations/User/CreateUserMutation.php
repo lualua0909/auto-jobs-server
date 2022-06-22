@@ -8,6 +8,7 @@ use App\Models\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
+use Log;
 
 class CreateUserMutation extends Mutation
 {
@@ -51,9 +52,6 @@ class CreateUserMutation extends Mutation
             ],
             'province_id' => [
                 'type' => Type::nonNull(Type::int()),
-            ],
-            'is_employer' => [
-                'type' => Type::int(),
             ],
             'company_type_id' => [
                 'type' => Type::int(),
@@ -129,6 +127,7 @@ class CreateUserMutation extends Mutation
             return $user;
         } catch (\Exception$e) {
             \DB::rollback();
+            Log::error($e->getMessage());
             return $e->getMessage();
         }
     }

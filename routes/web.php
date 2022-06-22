@@ -18,8 +18,9 @@ Route::get('test-1', function () {
     return $user;
 });
 
-Route::get('test-role', function () {
-    $role = Role::create(['name' => 'user']);
+Route::get('create-role', function () {
+    Role::create(['name' => 'user']);
+    Role::create(['name' => 'employer']);
     return 111;
 });
 
