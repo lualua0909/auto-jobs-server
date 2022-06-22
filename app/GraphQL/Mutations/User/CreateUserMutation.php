@@ -123,6 +123,8 @@ class CreateUserMutation extends Mutation
                 }
             }
 
+            $user->save();
+            
             \DB::commit();
             return $user;
         } catch (\Exception$e) {
