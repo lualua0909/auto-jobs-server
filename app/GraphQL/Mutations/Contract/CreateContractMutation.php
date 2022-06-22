@@ -6,6 +6,7 @@ use App\Models\Contract;
 use App\Models\Job;
 use App\Models\Notification;
 use App\Models\NotificationTemplate;
+use App\Models\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
